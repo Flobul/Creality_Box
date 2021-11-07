@@ -73,6 +73,7 @@
          <legend>
             <i class="icon loisir-darth"></i> {{Configuration du démon}}
          </legend>
+
         <div class="form-group">
           <label class="col-sm-4 control-label"><strong> {{Adresse IP de la Creality Box}}</strong>
               <sup><i class="fas fa-question-circle" title="{{Entrez l'adresse IP de la de la Creality Box.</br>}}"></i></sup>
@@ -81,34 +82,41 @@
               <input type="text" class="configKey form-control deviceir" data-l1key="ip" ><br>
           </div>
         </div>
-        <div class="form-group">
-         <label class="col-sm-4 control-label"> {{Numéro du port d'écoute Telnet}}
-             <sup><i class="fas fa-question-circle" title="{{Uniquement le port 23.}}"></i></sup>
-         </label>
-         <div class="col-sm-2">
-            <input type="text" class="configKey form-control " data-l1key="listenport" ><br>
-         </div>
 
-         </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label"> {{Port d'écoute Telnet}}
+             <sup><i class="fas fa-question-circle" title="{{Port 23 sauf s'il a été modifié.}}"></i></sup>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" class="configKey form-control" data-l1key="listenport" placeholder="23"><br>
+          </div>
+        </div>
 
         <div class="form-group">
           <label class="col-sm-4 control-label"><strong> {{Identifiant}}</strong>
               <sup><i class="fas fa-question-circle" title="{{Entrez l'identifiant.}} {{Par défaut}} : root"></i></sup>
           </label>
           <div class="col-sm-2">
-              <input type="text" class="configKey form-control deviceir" data-l1key="id" ></input>
+              <input type="text" class="configKey form-control deviceir" data-l1key="id" placeholder="root"></input>
           </div>
-        </div>
-         
-        <div class="form-group">
-          <label class="col-sm-4 control-label"><strong> {{Mot de passe}}</strong>
+          <label class="col-sm-2 control-label"><strong> {{Mot de passe}}</strong>
               <sup><i class="fas fa-question-circle" title="{{Entrez le mot de passe.}} {{Par défaut}} : cxswprin"></i></sup>
           </label>
           <div class="col-sm-2">
-              <input type="password" class="configKey form-control deviceir" data-l1key="password" ><br>
+              <input type="password" class="configKey form-control deviceir" data-l1key="password" placeholder="cxswprin"><br>
           </div>
         </div>
-         
+
+        <div class="form-group">
+           <label class="col-sm-4 control-label"> {{Fichier de log}}
+              <sup><i class="fas fa-question-circle" title="{{Fichier de log d'où seront récupérées les infos.}}"></i></sup>
+           </label>
+           <div class="form-group">
+              <div class="col-sm-4">
+                 <input type="text" class="configKey form-control " data-l1key="logmqtt" placeholder="/media/mmcblk0p1/creality/log/iotlink.log"><br>
+              </div>
+           </div>
+        </div>
       </div>
       </div>
    </fieldset>

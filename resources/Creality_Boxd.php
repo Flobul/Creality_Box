@@ -5,10 +5,11 @@ require_once dirname(__FILE__) . '/../core/class/Creality_Box.class.php';
 
 log::add('Creality_Box_Daemon', 'info', __('Activation du service Creality_Box', __FILE__));
 
-$listen = config::byKey('listenport', 'Creality_Box');
-$ipadr  = config::byKey('ip', 'Creality_Box');
-$id     = config::byKey('id', 'Creality_Box', 'root');
-$pwd    = config::byKey('password', 'Creality_Box', 'cxswprin'); // mot de passe par défaut hacked
+$listen  = config::byKey('listenport', 'Creality_Box');
+$ipadr   = config::byKey('ip', 'Creality_Box');
+$id      = config::byKey('id', 'Creality_Box', 'root');
+$pwd     = config::byKey('password', 'Creality_Box', 'cxswprin'); // mot de passe par défaut hacked
+$logmqtt = config::byKey('logmqtt', 'Creality_Box', '/media/mmcblk0p1/creality/log/iotlink.log');
 
 $telnet = new telnet_Creality_Box();
 $errno = '';
@@ -51,7 +52,7 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
             Creality_Box::addEquipement(config::byKey('ip', 'Creality_Box'));
         }
         sleep(2);
-        $telnet->telnetSendCommand("tail -f /media/mmcblk0p1/creality/log/iotlink.log | grep Payload", $resp);
+        $telnet->telnetSendCommand("tail -f " . $logmqtt . " | grep Payload", $resp);
         if ($resp != "") {
             log::add('Creality_Box_Daemon', 'info', __(' ╔====================================================================================', __FILE__));
             log::add('Creality_Box_Daemon', 'info', __(' ╠ Information reçue : ', __FILE__) . $resp);
