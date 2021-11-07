@@ -1,0 +1,219 @@
+{
+  "commands": [
+    {
+      "name": "Température de la buse",
+      "logicalId": "nozzleTemp",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "°C",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "TEMPERATURE",
+      "display": {
+          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+      }
+    },
+    {
+      "name": "Température de la buse 2",
+      "logicalId": "nozzleTemp2",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "°C",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "TEMPERATURE",
+      "display": {
+          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+      }
+    },
+    {
+      "name": "Température du lit",
+      "logicalId": "bedTemp",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "°C",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "TEMPERATURE",
+      "display": {
+          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+      }
+    },
+    {
+      "name": "Température du lit 2",
+      "logicalId": "bedTemp2",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "°C",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "TEMPERATURE",
+      "display": {
+          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+      }
+    },
+    {
+      "name": "Progression printProgress",
+      "logicalId": "printProgress",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "%",
+      "configuration" : {
+          "minValue" : 0,
+          "maxValue" : 100
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Progression dProgress",
+      "logicalId": "dProgress",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "%",
+      "configuration" : {
+          "minValue" : 0,
+          "maxValue" : 100
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Couche",
+      "logicalId": "layer",
+      "type": "info",
+      "subtype": "numeric",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "display": {
+          "icon": "<i class=\"fas fa-layer-group\"><\/i>"
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Modèle",
+      "logicalId": "model",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Vitesse du ventilateur",
+      "logicalId": "fan",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "%",
+      "configuration" : {
+          "calculValueOffset" : "#value#*100",
+          "minValue" : 0,
+          "maxValue" : 100
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "FAN_SPEED",
+      "display": {
+          "icon": "<i class=\"fas fa-fan\"><\/i>"
+      }
+    },
+    {
+      "name": "Etat de l'impression",
+      "logicalId": "state",
+      "type": "info",
+      "subtype": "numeric",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Identifiant de l'imprimante",
+      "logicalId": "printId",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Nombre d'impressions",
+      "logicalId": "printedTimes",
+      "type": "info",
+      "subtype": "numeric",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Temps d'impressions restant",
+      "logicalId": "timesLeftToPrint",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "TIMER",
+      "display": {
+          "icon": "<i class=\"fas fa-hourglass-half \"><\/i>"
+      }
+    },
+    {
+      "name": "Modèle d'imprimante",
+      "logicalId": "modelVersion",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Heure de début d'impression",
+      "logicalId": "printStartTime",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO",
+      "display": {
+          "icon": "<i class=\"far fa-clock \"><\/i>"
+      }
+    },
+    {
+      "name": "Erreur d'impression",
+      "logicalId": "err",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Coordonnées actuelle",
+      "logicalId": "curPosition",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Lien GCode",
+      "logicalId": "print",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    }
+  ]
+}
