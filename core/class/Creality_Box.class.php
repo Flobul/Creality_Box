@@ -23,43 +23,9 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.11';
+    public static $_pluginVersion = '0.20';
 
     /*     * ***********************Methode statique*************************** */
-
-    /**
-     * Lancement à l'intervalle selectionné de la commande Refresh
-     * si l'équipement est actif et que la commande existe
-     */
-    public static function cron()
-    {
-        log::add(__CLASS__, 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . ' : début');
-        $autorefresh = config::byKey('autorefresh', 'Creality_Box');
-        $eqLogics = eqLogic::byType('Creality_Box');
-        if ($autorefresh != '') {
-            try {
-                $cron = new Cron\CronExpression(checkAndFixCron($autorefresh), new Cron\FieldFactory);
-                if ($cron->isDue()) {
-                    try {
-                        foreach ($eqLogics as $eqLogic) {
-                            if ($eqLogic->getIsEnable()) {
-                                $cmd = $eqLogic->getCmd(null, 'Refresh');
-                                if (is_object($cmd)) {
-                                    $cmd->execCmd();
-                                }
-                            }
-                        }
-                    } catch (Exception $exc) {
-                        log::add(__CLASS__, 'debug', __("Erreur lors de l'exécution du cron ", __FILE__) . $exc->getMessage());
-                    }
-                    log::add(__CLASS__, 'debug', __("Fin d'exécution du cron ", __FILE__). $autorefresh);
-                }
-            } catch (Exception $exc) {
-                log::add(__CLASS__, 'error', __("Erreur lors de l'exécution du cron ", __FILE__) . $exc->getMessage());
-            }
-        }
-        log::add(__CLASS__, 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . ' : fin');
-    }
 
     /**
      * Récupère les infos du démon dans les processus
@@ -210,39 +176,40 @@ class Creality_Box extends eqLogic
     public function preSave()
     {
         log::add('Creality_Box', 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__);
-        $errno = '';
-        $errstr = '';
-        $listen = config::byKey('listenport', 'Creality_Box');
-        $ipadr = config::byKey('ip', 'Creality_Box');
-        $id = config::byKey('id', 'Creality_Box');
-        $pwd = config::byKey('password', 'Creality_Box');
+        if ($this->getConfiguration('hostname', '') == '') {
+            $errno = '';
+            $errstr = '';
+            $listen = config::byKey('listenport', 'Creality_Box');
+            $ipadr = config::byKey('ip', 'Creality_Box');
+            $id = config::byKey('id', 'Creality_Box');
+            $pwd = config::byKey('password', 'Creality_Box');
 
-        $telnet = new telnet_Creality_Box();
-        $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
-        if ($connect) {
-        log::add('Creality_Box', 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__);
+            $telnet = new telnet_Creality_Box();
+            $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
+            if ($connect) {
+            log::add('Creality_Box', 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__);
+                sleep(2);
+                $telnet->telnetReadResponse($result);
+                if (!preg_match('/login:/i', $result, $matches)) {
+                    $telnet->telnetDisconnect();
+                    log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
+                }
+                $telnet->telnetSendCommand($id, $resp);
+                if (!preg_match('/Password:/i', $resp, $matches)) {
+                    $telnet->telnetDisconnect();
+                    log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
+                }
+                sleep(2);
+                $telnet->telnetSendCommand($pwd, $resp); // BusyBox v1.12.1 (2020-12-16 14:52:12 CST) built-in shell (ash) \nEnter 'help' for a list of built-in commands.\n# "
+                if (!preg_match('/^BusyBox/i', trim($resp), $matches)) {
+                    $telnet->telnetDisconnect();
+                    log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
+                }
 
-            sleep(2);
-            $telnet->telnetReadResponse($result);
-            if (!preg_match('/login:/i', $result, $matches)) {
+                $telnet->telnetSendCommand('hostname', $resp);
+                $this->setConfiguration('hostname', Creality_Box::getData($resp));
                 $telnet->telnetDisconnect();
-                log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
             }
-            $telnet->telnetSendCommand($id, $resp);
-            if (!preg_match('/Password:/i', $resp, $matches)) {
-                $telnet->telnetDisconnect();
-                log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
-            }
-            sleep(2);
-            $telnet->telnetSendCommand($pwd, $resp); // BusyBox v1.12.1 (2020-12-16 14:52:12 CST) built-in shell (ash) \nEnter 'help' for a list of built-in commands.\n# "
-            if (!preg_match('/^BusyBox/i', trim($resp), $matches)) {
-                $telnet->telnetDisconnect();
-                log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
-            }
-
-            $telnet->telnetSendCommand('hostname', $resp);
-            $this->setConfiguration('hostname', Creality_Box::getData($resp));
-            $telnet->telnetDisconnect();
         }
     }
 
@@ -323,7 +290,7 @@ class Creality_Box extends eqLogic
             $cmd->setName($param);
             $cmd->setType('info');
             $cmd->setSubtype('string');
-        } else { // si on a récupéré les paramètre de cmd
+        } else { // si on a récupéré les paramètres de cmd, on les applique à la commande
             utils::a2o($cmd, $param_cmd);
         }
         $cmd->save();
@@ -342,13 +309,16 @@ class Creality_Box extends eqLogic
 		$_version = jeedom::versionAlias($_version);
 
         // informations de l'equipement
-        $replace['#device_type#'] = ($this->getConfiguration('type') != '') ? $this->getConfiguration('model') : "";
-        $replace['#device_model#'] = ($this->getConfiguration('model') != '') ? $this->getConfiguration('model') : "";
-        $replace['#info_method#'] = ($this->getConfiguration('infoMethod') != '') ? $this->getConfiguration('infoMethod') : "";
-        $replace['#action_method#'] = ($this->getConfiguration('actionMethod') != '') ? $this->getConfiguration('actionMethod') : "";
+        $replace['#device_ip#'] = $this->getConfiguration('IP', "");
+        $replace['#device_hostname#'] = $this->getConfiguration('hostname', "");
 
-		$refresh = $this->getCmd('action','Refresh');
-		$replace['#refresh_id#'] = (is_object($refresh)) ? $refresh->getId() : '';
+        foreach ($this->getCmd('info', null) as $cmd) {
+            $replace['#cmd_' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+            $replace['#cmd_' . $cmd->getLogicalId() . '_name#'] = $cmd->getName();
+            $replace['#cmd_' . $cmd->getLogicalId() . '_value#'] = $cmd->execCmd();
+            $replace['#cmd_' . $cmd->getLogicalId() . '_collectDate#'] = $cmd->getCollectDate();
+            $replace['#cmd_' . $cmd->getLogicalId() . '_valueDate#'] = $cmd->getValueDate();
+        }
 
 		$html = template_replace($replace, getTemplate('core', $_version, 'Creality_Box.template',__CLASS__));
 

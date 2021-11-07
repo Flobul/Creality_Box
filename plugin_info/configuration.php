@@ -106,7 +106,7 @@
               <input type="password" class="configKey form-control deviceir" data-l1key="password" placeholder="cxswprin"><br>
           </div>
         </div>
-
+        
         <div class="form-group">
            <label class="col-sm-4 control-label"> {{Fichier de log}}
               <sup><i class="fas fa-question-circle" title="{{Fichier de log d'où seront récupérées les infos.}}"></i></sup>
