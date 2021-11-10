@@ -29,33 +29,33 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
         $telnet->telnetReadResponse($result);
         if (!preg_match('/login:/i', $result, $matches)) {
             $telnet->telnetDisconnect();
-            log::add('Creality_Box_Daemon', 'error', __('█ Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
+            log::add('Creality_Box_Daemon', 'error', "█ " . __('Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
             Creality_Box::deamon_stop();
         }
         $telnet->telnetSendCommand($id, $resp);
         if (!preg_match('/Password:/i', $resp, $matches)) {
             $telnet->telnetDisconnect();
-            log::add('Creality_Box_Daemon', 'error', __('█ Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
+            log::add('Creality_Box_Daemon', 'error', "█ " . __('Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
             Creality_Box::deamon_stop();
         }
         sleep(2);
         $telnet->telnetSendCommand($pwd, $resp); // BusyBox v1.12.1 (2020-12-16 14:52:12 CST) built-in shell (ash) \nEnter 'help' for a list of built-in commands.\n# "
         if (!preg_match('/^BusyBox/i', trim($resp), $matches)) {
             $telnet->telnetDisconnect();
-            log::add('Creality_Box_Daemon', 'error', __('█ Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
+            log::add('Creality_Box_Daemon', 'error', "█ " . __('Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
             Creality_Box::deamon_stop();
         }
 
       	$Creality_Box = Creality_Box::byLogicalId(config::byKey('ip', 'Creality_Box'), 'Creality_Box');
 		if (!is_object($Creality_Box)) {
-            log::add('Creality_Box_Daemon', 'debug', __('▄ L\'équipement n\existe pas : ', __FILE__) . $resp);
+            log::add('Creality_Box_Daemon', 'debug', "▄ " . __(' L\'équipement n\existe pas : ', __FILE__) . $resp);
             Creality_Box::addEquipement(config::byKey('ip', 'Creality_Box'));
         }
         sleep(2);
         $telnet->telnetSendCommand("tail -f " . $logmqtt . " | grep Payload", $resp);
         if ($resp != "") {
-            log::add('Creality_Box_Daemon', 'info', __(' ╔====================================================================================', __FILE__));
-            log::add('Creality_Box_Daemon', 'info', __(' ╠ Information reçue : ', __FILE__) . $resp);
+            log::add('Creality_Box_Daemon', 'info', ' ╔====================================================================================');
+            log::add('Creality_Box_Daemon', 'info', ' ╠ ' . __('Information reçue : ', __FILE__) . $resp);
         }
 
         while (true) {
@@ -68,18 +68,18 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
                    foreach ($payload['params'] as $param => $value) {
                        $array += array($param => $value);  // {"printProgress":30}
                    }
-                   log::add('Creality_Box_Daemon', 'info', __(' ╠=================[ID='.$payload['id'].']=====[v='.$payload['version'].']=================', __FILE__));
-                   log::add('Creality_Box_Daemon', 'debug', __('╠ Information récupérée : ', __FILE__) . json_encode($payload['params']) . " devient : " . json_encode($array));
+                   log::add('Creality_Box_Daemon', 'info', ' ╠' . '=================[ID='.$payload['id'].']=====[v='.$payload['version'].']=================');
+                   log::add('Creality_Box_Daemon', 'debug', ' ╠ ' . __('Information récupérée : ', __FILE__) . json_encode($payload['params']) . " devient : " . json_encode($array));
                 }
 
             } elseif (trim($result) != '') {
-                log::add('Creality_Box_Daemon', 'debug', __(' ╠ Nouvelle information non implémentée : ', __FILE__) . json_encode($result));
+                log::add('Creality_Box_Daemon', 'debug', ' ╠ ' . __('Nouvelle information non implémentée : ', __FILE__) . json_encode($result));
             }
             if ($array != '') {
                 foreach ($eqLogics as $eqLogic) {
                     if ($eqLogic->getConfiguration('IP') == config::byKey('ip', 'Creality_Box')) { // si l'eqLogic existe, je l'instruis
                         foreach ($array as $param => $value) { // pour chaque params du payload : "params":{"bedTemp":17, "nozzleTemp":20}
-                            log::add('Creality_Box_Daemon', 'debug', __('╠ Information à instruire dans : ', __FILE__) . $eqLogic->getName());
+                            log::add('Creality_Box_Daemon', 'debug', '╠ ' . __('Information à instruire dans : ', __FILE__) . $eqLogic->getName());
                             $cmd = null;
                             $existing_cmd = $eqLogic->getCmd('info',$param);
                             if (is_object($existing_cmd)) { // si l'info qui remonte a déjà une cmd existante
@@ -88,8 +88,8 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
                             if ($cmd === null || !is_object($cmd)) { // si n'existe pas, on crée la cmd depuis le fichier de conf
                                 $cmd = $eqLogic->loadCmdFromConf($param);
                             }
-                            log::add('Creality_Box_Daemon', 'info', __(' ╠ Information : ' . $param."=". $value . ' renseignée dans : ', __FILE__) . $eqLogic->getName());
-                            log::add('Creality_Box_Daemon', 'info', __(' ╠====================================================================================', __FILE__));
+                            log::add('Creality_Box_Daemon', 'info', ' ╠ ' . __('Information : ' . $param."=". $value . ' renseignée dans : ', __FILE__) . $eqLogic->getName());
+                            log::add('Creality_Box_Daemon', 'info', ' ╠====================================================================================');
                             $cmd->event($value);
                         }
                     }
@@ -98,10 +98,10 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
         }
         usleep(500);
         if ((time() - $delai) > $refreshtime) {
-            log::add('Creality_Box_Daemon', 'info', 'L.' . __LINE__ . __('█ Délai dépassé ', __FILE__) . time() . " " . $delai);
+            log::add('Creality_Box_Daemon', 'info', 'L.' . __LINE__ . '█ ' . __('Délai dépassé ', __FILE__) . time() . " " . $delai);
         }
     } else {
         $telnet->telnetDisconnect();
-        log::add('Creality_Box_Daemon', 'error', 'L.' . __LINE__ . __('█ Erreur du démon : ', __FILE__) . $errstr . '(' . $errno . ')');
+        log::add('Creality_Box_Daemon', 'error', 'L.' . __LINE__ . '█ ' . __('Erreur du démon : ', __FILE__) . $errstr . '(' . $errno . ')');
         Creality_Box::deamon_stop();
     }

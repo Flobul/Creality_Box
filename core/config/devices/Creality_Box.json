@@ -81,7 +81,7 @@
       "generic_type": "GENERIC_INFO"
     },
     {
-      "name": "Couche",
+      "name": "Couches",
       "logicalId": "layer",
       "type": "info",
       "subtype": "numeric",
@@ -157,7 +157,7 @@
       "generic_type": "GENERIC_INFO"
     },
     {
-      "name": "Temps d'impressions restant",
+      "name": "Temps d'impression restant",
       "logicalId": "timesLeftToPrint",
       "type": "info",
       "subtype": "string",
@@ -199,7 +199,7 @@
       "generic_type": "GENERIC_INFO"
     },
     {
-      "name": "Coordonnées actuelle",
+      "name": "Position de la tête",
       "logicalId": "curPosition",
       "type": "info",
       "subtype": "string",

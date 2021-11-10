@@ -23,7 +23,9 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.21';
+    public static $_pluginVersion = '0.40';
+    public static $_widgetPossibility = array('custom' => true);
+
 
     /*     * ***********************Methode statique*************************** */
 
@@ -41,7 +43,7 @@ class Creality_Box extends eqLogic
         if ($pid != '' && $pid != '0') {
             $return['state'] = 'ok';
         }
-        if (config::byKey('listenport', 'Creality_Box') >  '1') {
+        if (config::byKey('listenport', 'Creality_Box') > '1') {
             $return['launchable'] = 'ok';
         } else {
             $return['launchable'] = 'nok';
@@ -179,10 +181,10 @@ class Creality_Box extends eqLogic
         if ($this->getConfiguration('hostname', '') == '') {
             $errno = '';
             $errstr = '';
-            $listen = config::byKey('listenport', 'Creality_Box');
+            $listen = config::byKey('listenport', 'Creality_Box', '23');
             $ipadr = config::byKey('ip', 'Creality_Box');
-            $id = config::byKey('id', 'Creality_Box');
-            $pwd = config::byKey('password', 'Creality_Box');
+            $id = config::byKey('id', 'Creality_Box', 'root');
+            $pwd = config::byKey('password', 'Creality_Box', 'cxswprin');
 
             $telnet = new telnet_Creality_Box();
             $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
@@ -316,12 +318,13 @@ class Creality_Box extends eqLogic
             $replace['#cmd_' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
             $replace['#cmd_' . $cmd->getLogicalId() . '_name#'] = $cmd->getName();
             $replace['#cmd_' . $cmd->getLogicalId() . '_value#'] = $cmd->execCmd();
+            $replace['#cmd_' . $cmd->getLogicalId() . '_display#'] = (is_object($cmd) && $cmd->getIsVisible()) ? '#cmd_' . $cmd->getLogicalId() . '_display#' : "none";
             $replace['#cmd_' . $cmd->getLogicalId() . '_collectDate#'] = $cmd->getCollectDate();
             $replace['#cmd_' . $cmd->getLogicalId() . '_valueDate#'] = $cmd->getValueDate();
         }
 
 		$html = template_replace($replace, getTemplate('core', $_version, 'Creality_Box.template',__CLASS__));
-
+        $html = translate::exec($html, 'plugins/Creality_Box/core/template/' . $_version . '/Creality_Box.template.html');
         return $html;
     }
 }
@@ -335,13 +338,12 @@ class Creality_BoxCmd extends cmd
         switch ($this->getLogicalId()) {
             case 'halt':
             case 'reboot':
-            case 'hostname':
-                $errno = '';
+                $errno  = '';
                 $errstr = '';
-                $listen = config::byKey('listenport', 'Creality_Box');
-                $ipadr = config::byKey('ip', 'Creality_Box');
-                $id = config::byKey('id', 'Creality_Box');
-                $pwd = config::byKey('password', 'Creality_Box');
+                $listen = config::byKey('listenport', 'Creality_Box', '23');
+                $ipadr  = config::byKey('ip', 'Creality_Box');
+                $id     = config::byKey('id', 'Creality_Box', 'root');
+                $pwd    = config::byKey('password', 'Creality_Box', 'cxswprin');
 
                 $telnet = new telnet_Creality_Box();
                 $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
@@ -367,7 +369,6 @@ class Creality_BoxCmd extends cmd
                     }
 
                     $telnet->telnetSendCommand($this->getLogicalId(), $resp);
-                    log::add('Creality_Box', 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' BLABLANIQIUE : ', __FILE__) . Creality_Box::getData($resp) . $resp);
                     $telnet->telnetDisconnect();
                 }
                 break;
