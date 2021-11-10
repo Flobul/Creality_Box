@@ -9,7 +9,7 @@
   "licence": "AGPL",
   "author": "DomoFlo1",
   "require": "4.0",
-  "category": "multimedia",
+  "category": "monitoring",
   "hasDependency": false,
   "hasOwnDeamon": true,
   "maxDependancyInstallTime": 0,
