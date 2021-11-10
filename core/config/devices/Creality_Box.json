@@ -128,7 +128,8 @@
       "type": "info",
       "subtype": "numeric",
       "configuration" : {
-          "minValue" : 0
+          "minValue" : 0,
+          "historizeMode" : "none"
       },
       "isVisible": 1,
       "isHistorized": 1,

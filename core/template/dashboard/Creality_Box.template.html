@@ -11,45 +11,59 @@
     </center>
 
     <div class="classContenant#uid#" id="idActual#uid#">
-        <div class="classTitle#uid#" data-cmd_id="#cmd_model_id#">
-          <span id="cmd_model_id#uid#" class="title"></span>
+        <div class="classTitle#uid#" data-cmd_id="#cmd_modelVersion_id#">
+          <span id="cmd_modelVersion_id#uid#" class="title" style="display:#cmd_modelVersion_display#"></span>
+        </div>
+        <div class="classTitle#uid#" data-cmd_id="#cmd_host_id#">
+          <span id="cmd_host_id#uid#" class="title"></span>
         </div>
         <div class="classStatus#uid# history cursor" data-cmd_id="#cmd_nozzleTemp_id#">
-          <span id="cmd_nozzleTemp_id#uid#" class="title"></span>
+          <span id="cmd_nozzleTemp_id#uid#" class="title" style="display:#cmd_nozzleTemp_display#"></span>
         </div>
         <div class="classStatus#uid# history cursor" data-cmd_id="#cmd_bedTemp_id#">
-          <span id="cmd_bedTemp_id#uid#" class="title"></span>
+          <span id="cmd_bedTemp_id#uid#" class="title" style="display:#cmd_bedTemp_display#"></span>
         </div>
         <div class="classStatus#uid# history cursor" data-cmd_id="#cmd_fan_id#">
-          <span id="cmd_fan_id#uid#" class="title"></span>
+          <span id="cmd_fan_id#uid#" class="title" style="display:#cmd_fan_display#"></span>
         </div>
     </div>
     <div class="classContenant#uid#" id="idInPrinting#uid#">
         <div class="classStatus#uid#" data-cmd_id="#cmd_state_id#">
-          <span id="cmd_state_id#uid#" class="title"></span>
+          <span id="cmd_state_id#uid#" class="title" style="display:#cmd_state_display#"></span>
         </div>
         <div class="classStatus#uid# history cursor" data-cmd_id="#cmd_printStartTime_id#">
-          <span id="cmd_printStartTime_id#uid#" class="title"></span>
+          <span id="cmd_printStartTime_id#uid#" class="title" style="display:#cmd_printStartTime_display#"></span>
         </div>
         <div class="classStatus#uid# history cursor" data-cmd_id="#cmd_layer_id#">
-          <span id="cmd_layer_id#uid#" class="title"></span>
+          <span id="cmd_layer_id#uid#" class="title" style="display:#cmd_layer_display#"></span>
         </div>
         <div class="classStatus#uid# history cursor" data-cmd_id="#cmd_printProgress_id#">
-          <span id="cmd_printProgress_id#uid#" class="title"></span>
+          <span id="cmd_printProgress_id#uid#" class="title" style="display:#cmd_printProgress_display#"></span>
         </div>
     </div>
-
+    #divGraphInfo#
 
     <style>
         .classContenant#uid# {
-            width: 100%;
-            height: 15%;
+            width: 98%;
+            margin-left:1%;
             color: #000000;
+            border-style: solid;
+            border-color: #d0d0d0;
+            border-radius: 10px;
+            background-color:lightgrey;
+            opacity:.9;
+        }
+        .classContenant#uid#:hover {
+            opacity:.65;
+        }
+        #idInPrinting#uid# {
+            margin-top:5px;
         }
         .classTitle#uid# {
             position: relative;
-            width: 104%;
-            left: -2%;
+            width: 100%;
+            border-radius: 5px;
             text-align: left;
             background-color: #E0E0E0;
             color: #808080;
@@ -86,57 +100,67 @@
         }
     </style>
     <script type="text/javascript">
-
-      
-    jeedom.cmd.update['#cmd_model_id#'] = function (_options) {
-        $('#cmd_model_id#uid#').html('<span id="idValueName#uid#">#device_hostname# #device_ip# </span> <span id="idValue#uid#">'+_options.display_value+'</span>');
+    //modele de l'imprimante
+    jeedom.cmd.update['#cmd_modelVersion_id#'] = function (_options) {
+        $('#cmd_modelVersion_id#uid#').html('<span id="idValueName#uid#">#cmd_modelVersion_name#</span> <span id="idValue#uid#">'+_options.display_value+'</span>');
     }
-    jeedom.cmd.update['#cmd_model_id#']({display_value: '#cmd_model_value#'});
+    jeedom.cmd.update['#cmd_modelVersion_id#']({display_value: '#cmd_modelVersion_value#'});
 
+    //hostname de l'appareil + IP
+    jeedom.cmd.update['#cmd_host_id#'] = function (_options) {
+        $('#cmd_host_id#uid#').html('<span id="idValueName#uid#">#device_hostname# #device_ip#</span> <span id="idValue#uid#">'+_options.display_value+'</span>');
+    }
+    jeedom.cmd.update['#cmd_host_id#']({display_value: '#cmd_model_value#'});
+
+    //Température du bed
     jeedom.cmd.update['#cmd_bedTemp_id#'] = function (_options) {
         $('#cmd_bedTemp_id#uid#').attr('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
         $('#cmd_bedTemp_id#uid#').html('<span id="idValueName#uid#">#cmd_bedTemp_name# :</span> <span id="idValue#uid#">'+_options.display_value+' °C</span>');
     }
     jeedom.cmd.update['#cmd_bedTemp_id#']({display_value: '#cmd_bedTemp_value#', valueDate: '#cmd_bedTemp_valueDate#', collectDate: '#cmd_bedTemp_collectDate#'});
 
+    //Température de la buse
     jeedom.cmd.update['#cmd_nozzleTemp_id#'] = function (_options) {
         $('#cmd_nozzleTemp_id#uid#').attr('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
         $('#cmd_nozzleTemp_id#uid#').html('<span id="idValueName#uid#">#cmd_nozzleTemp_name# :</span> <span id="idValue#uid#">'+_options.display_value+' °C</span>');
     }
     jeedom.cmd.update['#cmd_nozzleTemp_id#']({display_value: '#cmd_nozzleTemp_value#', valueDate: '#cmd_nozzleTemp_valueDate#', collectDate: '#cmd_nozzleTemp_collectDate#'});
-      
+
+    //Vitesse du ventilateur
     jeedom.cmd.update['#cmd_fan_id#'] = function (_options) {
         $('#cmd_fan_id#uid#').attr('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
         $('#cmd_fan_id#uid#').html('<span id="idValueName#uid#">#cmd_fan_name# :</span> <span id="idValue#uid#">'+_options.display_value+' %</span>');
     }
     jeedom.cmd.update['#cmd_fan_id#']({display_value: '#cmd_fan_value#', valueDate: '#cmd_fan_valueDate#', collectDate: '#cmd_fan_collectDate#'});
-     
-     
+
+    //Etat de l'imprimante
     jeedom.cmd.update['#cmd_state_id#'] = function (_options) {
         $('#cmd_state_id#uid#').attr('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
         $('#cmd_state_id#uid#').html('<span id="idValueName#uid#">#cmd_state_name# :</span> <span id="idValue#uid#">'+_options.display_value+'</span>');
     }
     jeedom.cmd.update['#cmd_state_id#']({display_value: '#cmd_state_value#', valueDate: '#cmd_state_valueDate#', collectDate: '#cmd_state_collectDate#'});
 
+    //Heure de début d'impression
     jeedom.cmd.update['#cmd_printStartTime_id#'] = function (_options) {
         var date = new Date(_options.display_value * 1000);
-        var hours = date.getHours();
+        var hours = "0" + date.getHours();
         var minutes = "0" + date.getMinutes();
         var seconds = "0" + date.getSeconds();
-        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        var formattedTime = hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
         $('#cmd_printStartTime_id#uid#').attr('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
         $('#cmd_printStartTime_id#uid#').html('<span id="idValueName#uid#">#cmd_printStartTime_name# :</span> <span id="idValue#uid#">'+formattedTime+'</span>');
     }
     jeedom.cmd.update['#cmd_printStartTime_id#']({display_value: '#cmd_printStartTime_value#', valueDate: '#cmd_printStartTime_valueDate#', collectDate: '#cmd_printStartTime_collectDate#'});
-      
+
+    //Nombre de couches
     jeedom.cmd.update['#cmd_layer_id#'] = function (_options) {
         $('#cmd_layer_id#uid#').attr('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
         $('#cmd_layer_id#uid#').html('<span id="idValueName#uid#">#cmd_layer_name# :</span> <span id="idValue#uid#">'+_options.display_value+'</span>');
     }
     jeedom.cmd.update['#cmd_layer_id#']({display_value: '#cmd_layer_value#', valueDate: '#cmd_layer_valueDate#', collectDate: '#cmd_layer_collectDate#'});
-      
+
+    //Progression
     jeedom.cmd.update['#cmd_printProgress_id#'] = function (_options) {
-      console.log(_options)
         $('#cmd_printProgress_id#uid#').attr('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
         $('#cmd_printProgress_id#uid#').html('<span id="idValueName#uid#">#cmd_printProgress_name# :</span> <div id="idProgress#uid#" class="progress#uid#"><span id="idValue#uid#">'+_options.display_value+' %</span></div>');
         let val = parseInt(_options.display_value);
@@ -144,8 +168,6 @@
         $('#idProgress#uid# > .ui-progressbar-value').addClass("progress-bar-striped");
     }
     jeedom.cmd.update['#cmd_printProgress_id#']({display_value: '#cmd_printProgress_value#', valueDate: '#cmd_printProgress_valueDate#', collectDate: '#cmd_printProgress_collectDate#'});
-      
-      
-      
+
 	</script>
 </div>
