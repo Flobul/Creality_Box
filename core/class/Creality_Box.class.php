@@ -26,6 +26,7 @@ class Creality_Box extends eqLogic
     public static $_pluginVersion = '0.40';
     public static $_widgetPossibility = array('custom' => true);
 
+
     /*     * ***********************Methode statique*************************** */
 
     /**
