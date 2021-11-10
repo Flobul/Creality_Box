@@ -13,14 +13,17 @@
   "hasDependency": false,
   "hasOwnDeamon": true,
   "maxDependancyInstallTime": 0,
-  "changelog": "https://flobul.github.io/Jeedom-Creality_Box/#language#/changelog",
-  "documentation": "https://flobul.github.io/Jeedom-Creality_Box/#language#/",
+  "changelog": "https://flobul-domotique.fr/liste-des-versions-du-plugin-creality-box-pour-jeedom/",
+  "documentation": "https://flobul-domotique.fr/documentation-du-plugin-creality-box-pour-jeedom/",
   "link": {
-    "forum": "https://community.jeedom.com/tag/plugin-creality_Box"
+    "forum": "https://community.jeedom.com/tag/plugin-creality_box"
   },
   "language": [
     "fr_FR",
-    "en_US"
+    "en_US",
+    "de_DE",
+    "es_ES",
+    "pt_PT"
   ],
   "compatibility": [
     "miniplus",
