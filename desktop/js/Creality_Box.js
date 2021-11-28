@@ -30,7 +30,6 @@ $('#bt_webcreality_Box').on('click', function () {
    if (!isset(_cmd.configuration)) {
      _cmd.configuration = {};
    }
-   console.log(_cmd)
 
    var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
    tr += '<td style="width:60px;">';
@@ -55,7 +54,9 @@ $('#bt_webcreality_Box').on('click', function () {
    tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
    tr += '</td>';
    tr += '<td>';
-   tr += '<textarea class="form-control input-sm" data-key="value" style="height:60px;disabled" placeholder="{{Valeur}}" readonly=true></textarea>';
+   if (init(_cmd.type != "action")) {
+       tr += '<textarea class="form-control input-sm" data-key="value" style="height:60px;disabled" placeholder="{{Valeur}}" readonly=true></textarea>';
+   }
    tr += '</td>';
 
    tr += '<td style="min-width:150px;width:350px;">';
@@ -97,7 +98,7 @@ $('#bt_webcreality_Box').on('click', function () {
         $('#table_cmd [data-cmd_id="' + _cmd.id + '"] .form-control[data-key=value]').value(val);
     }
 
-    if (_cmd.id != undefined) {
+    if (_cmd.id != undefined && _cmd.type != "action") {
         jeedom.cmd.execute({
             id: _cmd.id,
             cache: 0,
