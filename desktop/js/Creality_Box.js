@@ -15,7 +15,6 @@
  */
 
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-//$("#table_info").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
 $('#bt_webcreality_Box').on('click', function () {
   var nodeId = $('.eqLogicAttr[data-l1key=configuration][data-l2key=IP]').value();
@@ -63,8 +62,6 @@ $('#bt_webcreality_Box').on('click', function () {
    tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min.}}" title="{{Min.}}" style="width:30%;display:inline-block;"/> ';
    tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max.}}" title="{{Max.}}" style="width:30%;display:inline-block;"/> ';
    tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unité}}" title="{{Unité}}" style="width:30%;display:inline-block;"/>';
-   //tr += '</td>';
-   //tr += '<td style="min-width:80px;width:350px;">';
    tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isVisible" checked/>{{Afficher}}</label>';
    tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isHistorized" checked/>{{Historiser}}</label>';
    tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary"/>{{Inverser}}</label>';
@@ -93,7 +90,7 @@ $('#bt_webcreality_Box').on('click', function () {
        jeedom.cmd.changeType(tr, init(_cmd.subType));
      }
    });
-   
+
     function refreshValue(val) {
         $('#table_cmd [data-cmd_id="' + _cmd.id + '"] .form-control[data-key=value]').value(val);
     }
@@ -171,7 +168,6 @@ function printEqLogic(_eqLogic) {
 
     printEqLogicTab(_eqLogic); //affiche les info de l'équipement
     $('body').setValues(_eqLogic, '.eqLogicAttr');
-    //initCheckBox();
     modifyWithoutSave = false;
 }
 

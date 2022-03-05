@@ -35,7 +35,6 @@ class Creality_Box extends eqLogic
      */
     public static function deamon_info()
     {
-        //log::add('Creality_Box_Daemon', 'info', 'Etat du service Creality_Box');
         $return = array();
         $return['log'] = 'Creality_Box_Daemon';
         $return['state'] = 'nok';
@@ -49,7 +48,6 @@ class Creality_Box extends eqLogic
             $return['launchable'] = 'nok';
             $return['launchable_message'] = __('Le port n\'est pas configuré.', __FILE__);
         }
-        //log::add('Creality_Box_Daemon', 'info', "Statut=".$return['state']);
         return $return;
     }
 
@@ -262,7 +260,6 @@ class Creality_Box extends eqLogic
      */
     public function loadCmdFromConf($param)
     {
-        $return = array();
         if (!is_file(dirname(__FILE__) . '/../../core/config/devices/Creality_Box.json')) {
             log::add(__CLASS__, 'debug', __("Fichier introuvable : ", __FILE__) . dirname(__FILE__) . '/config/devices/Creality_Box.json');
             return false;
@@ -333,7 +330,6 @@ class Creality_BoxCmd extends cmd
 {
     public function execute($_options = array())
     {
-        $eqLogic = $this->getEqLogic();
         log::add('Creality_Box', 'debug', __("Action sur ", __FILE__) . $this->getLogicalId());
         switch ($this->getLogicalId()) {
             case 'halt':

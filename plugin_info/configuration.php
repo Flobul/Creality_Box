@@ -58,7 +58,7 @@
             </div>
             <div>
                <i> {{Les dernières discussions autour du plugin}}<a class="btn btn-label btn-xs" target="_blank" href="https://community.jeedom.com/tags/plugin-Creality_Box"><i class="icon jeedomapp-home-jeedom icon-Creality_Box"></i><strong>{{sur le community}}</strong></a>.</i></br>
-               <i> {{Pensez à mettre le tag}} <b><font font-weight="bold" size="+1">#plugin-Creality_Box</font></b> {{et à fournir les log dans les balises préformatées}}.</i>
+               <i> {{Pensez à mettre le tag}} <strong style="font-size:1.5em">#plugin-Creality_Box</strong> {{et à fournir les log dans les balises préformatées}}.</i>
             </div>
             <style>
                .icon-Creality_Box {
@@ -106,7 +106,7 @@
               <input type="password" class="configKey form-control deviceir" data-l1key="password" placeholder="cxswprin"><br>
           </div>
         </div>
-        
+
         <div class="form-group">
            <label class="col-sm-4 control-label"> {{Fichier de log}}
               <sup><i class="fas fa-question-circle" title="{{Fichier de log d'où seront récupérées les infos.}}"></i></sup>
