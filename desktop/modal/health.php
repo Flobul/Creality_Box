@@ -40,8 +40,6 @@ $eqLogics = Creality_Box::byType('Creality_Box');
         foreach ($eqLogics as $eqLogic) {
           echo '<tr><td><a href="' . $eqLogic->getLinkToConfiguration() . '" style="text-decoration: none;">' . $eqLogic->getHumanName(true) . '</a></td>';
 
-          //echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getId() . '</span></td>';
-
           echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getConfiguration('IP') . '</span></td>';
 
           echo '<td><span class="label label-info" style="font-size : 1em; cursor : default;">' . $eqLogic->getConfiguration('hostname') . '</span></td>';

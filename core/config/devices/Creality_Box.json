@@ -1,6 +1,5 @@
 {
-  "commands": [
-    {
+  "commands": [{
       "name": "Température de la buse",
       "logicalId": "nozzleTemp",
       "type": "info",
@@ -10,7 +9,7 @@
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
       "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+        "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
     },
     {
@@ -23,7 +22,7 @@
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
       "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+        "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
     },
     {
@@ -36,7 +35,7 @@
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
       "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+        "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
     },
     {
@@ -49,7 +48,7 @@
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
       "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+        "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
     },
     {
@@ -58,9 +57,9 @@
       "type": "info",
       "subtype": "numeric",
       "unite": "%",
-      "configuration" : {
-          "minValue" : 0,
-          "maxValue" : 100
+      "configuration": {
+        "minValue": 0,
+        "maxValue": 100
       },
       "isVisible": 1,
       "isHistorized": 1,
@@ -72,24 +71,24 @@
       "type": "info",
       "subtype": "numeric",
       "unite": "%",
-      "configuration" : {
-          "minValue" : 0,
-          "maxValue" : 100
+      "configuration": {
+        "minValue": 0,
+        "maxValue": 100
       },
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "GENERIC_INFO"
     },
     {
-      "name": "Couches",
+      "name": "Couche actuelle",
       "logicalId": "layer",
       "type": "info",
       "subtype": "numeric",
-      "configuration" : {
-          "minValue" : 0
+      "configuration": {
+        "minValue": 0
       },
       "display": {
-          "icon": "<i class=\"fas fa-layer-group\"><\/i>"
+        "icon": "<i class=\"fas fa-layer-group\"><\/i>"
       },
       "isVisible": 1,
       "isHistorized": 1,
@@ -101,7 +100,7 @@
       "type": "info",
       "subtype": "string",
       "isVisible": 1,
-      "isHistorized": 1,
+      "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
     },
     {
@@ -110,16 +109,16 @@
       "type": "info",
       "subtype": "numeric",
       "unite": "%",
-      "configuration" : {
-          "calculValueOffset" : "#value#*100",
-          "minValue" : 0,
-          "maxValue" : 100
+      "configuration": {
+        "calculValueOffset": "#value#*100",
+        "minValue": 0,
+        "maxValue": 100
       },
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "FAN_SPEED",
       "display": {
-          "icon": "<i class=\"fas fa-fan\"><\/i>"
+        "icon": "<i class=\"fas fa-fan\"><\/i>"
       }
     },
     {
@@ -127,9 +126,9 @@
       "logicalId": "state",
       "type": "info",
       "subtype": "numeric",
-      "configuration" : {
-          "minValue" : 0,
-          "historizeMode" : "none"
+      "configuration": {
+        "minValue": 0,
+        "historizeMode": "none"
       },
       "isVisible": 1,
       "isHistorized": 1,
@@ -141,7 +140,7 @@
       "type": "info",
       "subtype": "string",
       "isVisible": 1,
-      "isHistorized": 1,
+      "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
     },
     {
@@ -149,8 +148,8 @@
       "logicalId": "printedTimes",
       "type": "info",
       "subtype": "numeric",
-      "configuration" : {
-          "minValue" : 0
+      "configuration": {
+        "minValue": 0
       },
       "isVisible": 1,
       "isHistorized": 1,
@@ -165,7 +164,7 @@
       "isHistorized": 1,
       "generic_type": "TIMER",
       "display": {
-          "icon": "<i class=\"fas fa-hourglass-half \"><\/i>"
+        "icon": "<i class=\"fas fa-hourglass-half \"><\/i>"
       }
     },
     {
@@ -174,7 +173,7 @@
       "type": "info",
       "subtype": "string",
       "isVisible": 1,
-      "isHistorized": 1,
+      "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
     },
     {
@@ -186,7 +185,7 @@
       "isHistorized": 1,
       "generic_type": "GENERIC_INFO",
       "display": {
-          "icon": "<i class=\"far fa-clock \"><\/i>"
+        "icon": "<i class=\"far fa-clock \"><\/i>"
       }
     },
     {
@@ -214,6 +213,122 @@
       "subtype": "string",
       "isVisible": 1,
       "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Vidéo",
+      "logicalId": "video",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Statut de la mise à jour",
+      "logicalId": "upgradeStatus",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Mise à jour",
+      "logicalId": "upgrade",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Carte TransFlash",
+      "logicalId": "tfCard",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Dépôt",
+      "logicalId": "repo",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Arrêté",
+      "logicalId": "stop",
+      "type": "info",
+      "subtype": "binary",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Redémarré",
+      "logicalId": "reboot",
+      "type": "info",
+      "subtype": "binary",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "En pause",
+      "logicalId": "pause",
+      "type": "info",
+      "subtype": "binary",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Consommables",
+      "logicalId": "report_consumables",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Temps d'impression restant",
+      "logicalId": "printLeftTime",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "unite": "s",
+      "configuration": {
+        "minValue": 0
+      },
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Temps d'impression écoulé",
+      "logicalId": "printJobTime",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "unite": "s",
+      "configuration": {
+        "minValue": 0
+      },
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Version de la box",
+      "logicalId": "boxVersion",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 0,
+      "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
     }
   ]
