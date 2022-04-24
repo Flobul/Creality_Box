@@ -52,28 +52,54 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
             Creality_Box::addEquipement(config::byKey('ip', 'Creality_Box'));
         }
         sleep(2);
-        $telnet->telnetSendCommand("tail -f " . $logmqtt . " | grep Payload", $resp);
+        $path_parts = pathinfo($logmqtt);
+
+        if ($path_parts['basename'] == 'iotlink.log') {
+            $telnet->telnetSendCommand("tail -f " . $logmqtt . " | grep Payload", $resp);
+        } else if ($path_parts['basename'] == 'iot_tb.log') {
+            $telnet->telnetSendCommand("tail -f " . $logmqtt . " | grep 'data:{'", $resp);
+        }
+
         if ($resp != '') {
             log::add('Creality_Box_Daemon', 'info', '	╔====================================================================================');
             log::add('Creality_Box_Daemon', 'info', '	╠ ' . __('Information reçue : ', __FILE__) . $resp);
         }
 
-        while (true) {
+        $connected = true;
+        while ($connected) {
             $telnet->telnetReadResponse($resp); // {"id":"11098","version":"1.0","params":{"printProgress":30},"method":"thing.event.property.post"}
             $state='';
             $array = array();
-            if (preg_match('/Payload:+(.*)/i', $resp, $matches)) {
-                $payload = json_decode($matches[1],true); // {"printProgress":30}
-                if (is_array($payload) && array_key_exists('params', $payload)) {
-                   foreach ($payload['params'] as $param => $value) {
-                       $array += array($param => $value);  // {"printProgress":30}
-                   }
-                   log::add('Creality_Box_Daemon', 'info', '	╠' . '=================[ID='.$payload['id'].']=====[v='.$payload['version'].']=================');
-                   log::add('Creality_Box_Daemon', 'debug', '	╠ ' . __('Information récupérée : ', __FILE__) . json_encode($payload['params']) . " devient : " . json_encode($array));
-                }
+          
+            if ($path_parts['basename'] == 'iotlink.log') {
+        
+                if (preg_match('/Payload:+(.*)/i', $resp, $matches)) {
+                    $payload = json_decode($matches[1],true); // {"printProgress":30}
+                    if (is_array($payload) && array_key_exists('params', $payload)) {
+                       foreach ($payload['params'] as $param => $value) {
+                           $array += array($param => $value);  // {"printProgress":30}
+                       }
+                       log::add('Creality_Box_Daemon', 'info', '	╠' . '=================[ID='.$payload['id'].']=====[v='.$payload['version'].']=================');
+                       log::add('Creality_Box_Daemon', 'debug', '	╠ ' . __('Information récupérée : ', __FILE__) . json_encode($payload['params']) . " devient : " . json_encode($array));
+                    }
 
-            } elseif (trim($resp) != '') {
-                log::add('Creality_Box_Daemon', 'debug', '	╠ ' . __('Nouvelle information non implémentée : ', __FILE__) . json_encode($resp));
+                } elseif (trim($resp) != '') {
+                    log::add('Creality_Box_Daemon', 'debug', '	╠ ' . __('Nouvelle information non implémentée : ', __FILE__) . json_encode($resp));
+                }
+            } else if ($path_parts['basename'] == 'iot_tb.log') {
+                if (preg_match('/data:+(.*)/i', $resp, $matches)) {
+
+                    $payload = json_decode($matches[1],true); // {"printProgress":30}
+                    if (is_array($payload)) {
+                       foreach ($payload as $param => $value) {
+                           $array += array($param => $value);  // {"printProgress":30}
+                       }
+                       log::add('Creality_Box_Daemon', 'debug', '	╠ ' . __('Information récupérée : ', __FILE__) . json_encode($payload) . " devient : " . json_encode($array));
+                    }
+
+                } elseif (trim($resp) != '') {
+                    log::add('Creality_Box_Daemon', 'debug', '	╠ ' . __('Nouvelle information non implémentée : ', __FILE__) . json_encode($resp));
+                }
             }
             if ($array != '') {
                 foreach ($eqLogics as $eqLogic) {
@@ -94,11 +120,10 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
                     }
                 }
             }
-        }
-        usleep(500);
-
-        if ((time() - $delai) > $refreshtime) {
-            log::add('Creality_Box_Daemon', 'info', 'L.' . __LINE__ . '█ ' . __('Délai dépassé ', __FILE__) . time() . " " . $delai);
+            if (exec('netstat -natp | grep '.config::byKey('ip', 'Creality_Box').' | grep ESTABLISHED -c') != 1) {
+                $connected = false;
+            }
+            log::add('Creality_Box_Daemon', 'info', '	Long polling connected : ' . $connected);
         }
     } else {
         $telnet->telnetDisconnect();
