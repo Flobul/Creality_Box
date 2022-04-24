@@ -81,7 +81,7 @@
       "generic_type": "GENERIC_INFO"
     },
     {
-      "name": "Couches",
+      "name": "Couche actuelle",
       "logicalId": "layer",
       "type": "info",
       "subtype": "numeric",
@@ -101,7 +101,7 @@
       "type": "info",
       "subtype": "string",
       "isVisible": 1,
-      "isHistorized": 1,
+      "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
     },
     {
@@ -141,7 +141,7 @@
       "type": "info",
       "subtype": "string",
       "isVisible": 1,
-      "isHistorized": 1,
+      "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
     },
     {
@@ -174,7 +174,7 @@
       "type": "info",
       "subtype": "string",
       "isVisible": 1,
-      "isHistorized": 1,
+      "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
     },
     {
@@ -215,6 +215,124 @@
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Vidéo",
+      "logicalId": "video",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Statut de la mise à jour",
+      "logicalId": "upgradeStatus",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Mise à jour",
+      "logicalId": "upgrade",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Carte TransFlash",
+      "logicalId": "tfCard",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Dépôt",
+      "logicalId": "repo",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Arrêté",
+      "logicalId": "stop",
+      "type": "info",
+      "subtype": "binary",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Redémarré",
+      "logicalId": "reboot",
+      "type": "info",
+      "subtype": "binary",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "En pause",
+      "logicalId": "pause",
+      "type": "info",
+      "subtype": "binary",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },    
+    {
+      "name": "Consommables",
+      "logicalId": "report_consumables",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Temps d'impression restant",
+      "logicalId": "printLeftTime",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "unite": "s",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Temps d'impression écoulé",
+      "logicalId": "printJobTime",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "unite": "s",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Version de la box",
+      "logicalId": "boxVersion",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 0,
+      "isHistorized": 0,
+      "generic_type": "GENERIC_INFO"
     }
+    
+    
   ]
 }
