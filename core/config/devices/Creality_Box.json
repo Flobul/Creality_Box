@@ -1,7 +1,7 @@
 {
   "commands": [
     {
-      "name": "Température de la buse",
+      "name": "Température actuelle de la buse",
       "logicalId": "nozzleTemp",
       "type": "info",
       "subtype": "numeric",
@@ -9,12 +9,16 @@
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
+      "configuration": {
+          "minValue": 0,
+          "maxValue": 260
+      },
       "display": {
           "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
     },
     {
-      "name": "Température de la buse 2",
+      "name": "Température de consigne de la buse",
       "logicalId": "nozzleTemp2",
       "type": "info",
       "subtype": "numeric",
@@ -22,12 +26,16 @@
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
+      "configuration": {
+          "minValue": 0,
+          "maxValue": 260
+      },
       "display": {
           "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
     },
     {
-      "name": "Température du lit",
+      "name": "Température actuelle du lit",
       "logicalId": "bedTemp",
       "type": "info",
       "subtype": "numeric",
@@ -35,12 +43,16 @@
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
+      "configuration": {
+          "minValue": 0,
+          "maxValue": 110
+      },
       "display": {
           "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
     },
     {
-      "name": "Température du lit 2",
+      "name": "Température de consigne du lit",
       "logicalId": "bedTemp2",
       "type": "info",
       "subtype": "numeric",
@@ -48,6 +60,10 @@
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "TEMPERATURE",
+      "configuration": {
+          "minValue": 0,
+          "maxValue": 110
+      },
       "display": {
           "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
       }
@@ -75,6 +91,20 @@
       "configuration" : {
           "minValue" : 0,
           "maxValue" : 100
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Vitesse",
+      "logicalId": "curFeedratePct",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "%",
+      "configuration" : {
+          "minValue" : 0,
+          "maxValue" : 999
       },
       "isVisible": 1,
       "isHistorized": 1,
@@ -157,7 +187,7 @@
       "generic_type": "GENERIC_INFO"
     },
     {
-      "name": "Temps d'impression restant",
+      "name": "Temps restant pour l'impression",
       "logicalId": "timesLeftToPrint",
       "type": "info",
       "subtype": "string",
@@ -247,7 +277,7 @@
       "name": "Carte TransFlash",
       "logicalId": "tfCard",
       "type": "info",
-      "subtype": "numeric",
+      "subtype": "binary",
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "GENERIC_INFO"
@@ -298,7 +328,7 @@
       "generic_type": "GENERIC_INFO"
     },
     {
-      "name": "Temps d'impression restant",
+      "name": "Temps de l'impression restant",
       "logicalId": "printLeftTime",
       "type": "info",
       "subtype": "numeric",
