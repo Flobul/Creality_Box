@@ -31,23 +31,18 @@ $('#bt_webcreality_Box').on('click', function () {
    }
 
    var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
-   tr += '<td style="width:60px;">';
-   tr += '<span class="cmdAttr" data-l1key="id"></span>';
-   tr += '</td>';
-   tr += '<td style="min-width:300px;width:350px;">';
-   tr += '<div class="row">';
-   tr += '<div class="col-xs-7">';
-   tr += '<input class="cmdAttr form-control input-sm" data-l1key="name" placeholder="{{Nom de la commande}}">';
-   tr += '<select class="cmdAttr form-control input-sm" data-l1key="value" style="display : none;margin-top : 5px;" title="{{Commande information liée}}">';
-   tr += '<option value="">{{Aucune}}</option>';
-   tr += '</select>';
-   tr += '</div>';
-   tr += '<div class="col-xs-5">';
-   tr += '<a class="cmdAction btn btn-default btn-sm" data-l1key="chooseIcon"><i class="fas fa-flag"></i> {{Icône}}</a>';
-   tr += '<span class="cmdAttr" data-l1key="display" data-l2key="icon" style="margin-left : 10px;"></span>';
-   tr += '</div>';
-   tr += '</div>';
-   tr += '</td>';
+  tr += '<td class="hidden-xs">'
+  tr += '    <span class="cmdAttr" data-l1key="id" style="display:none;"></span>'
+  tr += '    <div class="input-group">'
+  tr += '        <input class="cmdAttr form-control input-sm roundedLeft" data-l1key="name" placeholder="{{Nom de la commande}}">'
+  tr += '        <span class="input-group-btn"><a class="cmdAction btn btn-sm btn-default" data-l1key="chooseIcon" title="{{Choisir une icône}}"><i class="fas fa-icons"></i></a></span>'
+  tr += '        <span class="cmdAttr input-group-addon roundedRight" data-l1key="display" data-l2key="icon" style="font-size:19px;padding:0 5px 0 0!important;background:var(--btn-default-color) !important";width:2%;></span>'
+  tr += '    </div>'
+  tr += '    <select class="cmdAttr form-control input-sm" data-l1key="value" style="display:none;margin-top:5px;max-width:50%;float:right;" title="{{Commande info liée}}">'
+  tr += '        <option value="">{{Aucune}}</option>'
+  tr += '    </select>'
+  tr += '</td>'
+
    tr += '<td>';
    tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>';
    tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
@@ -58,19 +53,34 @@ $('#bt_webcreality_Box').on('click', function () {
    }
    tr += '</td>';
 
-   tr += '<td style="min-width:150px;width:350px;">';
-   tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min.}}" title="{{Min.}}" style="width:30%;display:inline-block;"/> ';
-   tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max.}}" title="{{Max.}}" style="width:30%;display:inline-block;"/> ';
-   tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unité}}" title="{{Unité}}" style="width:30%;display:inline-block;"/>';
-   tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isVisible" checked/>{{Afficher}}</label>';
-   tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="isHistorized" checked/>{{Historiser}}</label>';
+
+  tr += '<td style="min-width:120px;width:200px;">';
+  if (init(_cmd.subType) == 'numeric') {
+    tr += '    <input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="display:inline-block;width: 50px;"></input>';
+    tr += '    <input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="{{Unité}}" title="{{Unité}}" style="display:inline-block;width: 50px;"></input>';
+    tr += '    <style>.select {}</style>';
+    tr += '    <input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="width: 50px;"></input>';
+  }
+
+  if (init(_cmd.subType) == 'select') {
+    tr += '    <input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="listValue" placeholder="{{Liste de valeur|texte séparé par ;}}" title="{{Liste}}">';
+  }
+  if (['select', 'slider', 'color'].includes(init(_cmd.subType)) || init(_cmd.configuration.updateCmdId) != '') {
+    tr += '    <select class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="updateCmdId" title="{{Commande d\'information à mettre à jour}}">';
+    tr += '        <option value="">Aucune</option>';
+    tr += '    </select>';
+    tr += '    <input class="tooltips cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="updateCmdToValue" placeholder="{{Valeur de l\'information}}">';
+  }
+  tr += '<td style="min-width:120px;width:140px;">';
+  tr += '    <span><input type="checkbox" class="cmdAttr" data-size="mini" data-l1key="isVisible" checked/> {{Afficher}}<br/></span>';
+  tr += '    <span><input type="checkbox" class="cmdAttr" data-l1key="isHistorized"/> {{Historiser}}</span>';
    tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary"/>{{Inverser}}</label>';
    tr += '</td>';
+ 
    tr += '<td style="min-width:80px;width:200px;">';
   tr += '<div class="input-group">';
   if (is_numeric(_cmd.id) && _cmd.id != '') {
     tr += '<a class="btn btn-default btn-xs cmdAction roundedLeft" data-action="configure" title="{{Configuration de la commande}} ' + _cmd.type + '"><i class="fa fa-cogs"></i></a>';
-    tr += '<a class="btn btn-warning btn-xs cmdAttr" data-action="configureCommand" title="{{Modification de la commande}} ' + _cmd.type + '"><i class="fas fa-wrench"></i></a>';
     tr += '<a class="btn btn-success btn-xs cmdAction" data-action="test" title="{{Tester}}"><i class="fa fa-rss"></i> {{Tester}}</a>';
   }
   tr += '<a class="btn btn-danger btn-xs cmdAction roundedRight" data-action="remove" title="{{Suppression de la commande}} ' + _cmd.type + '"><i class="fas fa-minus-circle"></i></a>';
@@ -86,6 +96,7 @@ $('#bt_webcreality_Box').on('click', function () {
      },
      success: function (result) {
        tr.find('.cmdAttr[data-l1key=value]').append(result);
+       tr.find('.cmdAttr[data-l1key=configuration][data-l2key=updateCmdId]').append(result);
        tr.setValues(_cmd, '.cmdAttr');
        jeedom.cmd.changeType(tr, init(_cmd.subType));
      }
