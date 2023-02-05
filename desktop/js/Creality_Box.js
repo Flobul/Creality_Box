@@ -76,7 +76,7 @@ $('#bt_webcreality_Box').on('click', function () {
   tr += '    <span><input type="checkbox" class="cmdAttr" data-l1key="isHistorized"/> {{Historiser}}</span>';
    tr += '<label class="checkbox-inline"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary"/>{{Inverser}}</label>';
    tr += '</td>';
- 
+
    tr += '<td style="min-width:80px;width:200px;">';
   tr += '<div class="input-group">';
   if (is_numeric(_cmd.id) && _cmd.id != '') {
@@ -88,7 +88,7 @@ $('#bt_webcreality_Box').on('click', function () {
 
    $('#table_cmd tbody').append(tr);
    var tr = $('#table_cmd tbody tr').last();
-   jeedom.eqLogic.builSelectCmd({
+   jeedom.eqLogic.buildSelectCmd({
      id:  $('.eqLogicAttr[data-l1key=id]').value(),
      filter: {type: 'info'},
      error: function (error) {
