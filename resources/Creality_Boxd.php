@@ -70,9 +70,9 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
             $telnet->telnetReadResponse($resp); // {"id":"11098","version":"1.0","params":{"printProgress":30},"method":"thing.event.property.post"}
             $state='';
             $array = array();
-          
+
             if ($path_parts['basename'] == 'iotlink.log') {
-        
+
                 if (preg_match('/Payload:+(.*)/i', $resp, $matches)) {
                     $payload = json_decode($matches[1],true); // {"printProgress":30}
                     if (is_array($payload) && array_key_exists('params', $payload)) {
@@ -129,4 +129,5 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
         $telnet->telnetDisconnect();
         log::add('Creality_Box_Daemon', 'error', 'L.' . __LINE__ . '█ ' . __('Erreur du démon : ', __FILE__) . $errstr . '(' . $errno . ')');
         Creality_Box::deamon_stop();
+        Creality_Box::deamon_start();
     }
