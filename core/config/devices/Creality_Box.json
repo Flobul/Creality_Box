@@ -83,6 +83,21 @@
       "generic_type": "GENERIC_INFO"
     },
     {
+      "name": "Progression percent",
+      "logicalId": "percent",
+      "type": "info",
+      "subtype": "numeric",
+      "unite": "%",
+      "configuration" : {
+          "calculValueOffset" : "#value#/100",
+          "minValue" : 0,
+          "maxValue" : 100
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
       "name": "Progression dProgress",
       "logicalId": "dProgress",
       "type": "info",
@@ -317,7 +332,7 @@
       "isVisible": 1,
       "isHistorized": 1,
       "generic_type": "GENERIC_INFO"
-    },    
+    },
     {
       "name": "Consommables",
       "logicalId": "report_consumables",
@@ -361,8 +376,68 @@
       "isVisible": 0,
       "isHistorized": 0,
       "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Retour chariot",
+      "logicalId": "autohome",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Retour chariot",
+      "logicalId": "connect",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Filament utilisé (cm)",
+      "logicalId": "ConsumablesLen",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "unite": "cm",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Filament utilisé (g)",
+      "logicalId": "ConsumablesWeight",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "unite": "g",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Filament estimé",
+      "logicalId": "FilamentLen",
+      "type": "info",
+      "subtype": "numeric",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
+      "name": "Adresse IP",
+      "logicalId": "netIP",
+      "type": "info",
+      "subtype": "string",
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
     }
-    
-    
   ]
 }

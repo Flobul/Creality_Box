@@ -23,7 +23,7 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.51';
+    public static $_pluginVersion = '0.52';
     public static $_widgetPossibility = array('custom' => true);
 
 
@@ -58,6 +58,7 @@ class Creality_Box extends eqLogic
      */
     public static function deamon_start($_debug = false)
     {
+		self::deamon_stop();
         log::add('Creality_Box_Daemon', 'info', __('Lancement du service Creality_Box', __FILE__));
         $deamon_info = self::deamon_info();
         if ($deamon_info['launchable'] != 'ok') {

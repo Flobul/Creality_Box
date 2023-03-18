@@ -26,7 +26,7 @@ class telnet_Creality_Box {
 		return $this->fp?1:0;
 	}
 
-	public function telnetDisconnect() {
+	public function telnetDisconnect(&$result = null) {
 		if ($this->fp) {
 			$this->telnetSendCommand('exit',$result);
 			fclose($this->fp);
