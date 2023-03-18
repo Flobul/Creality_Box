@@ -113,7 +113,9 @@ $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
                 foreach ($eqLogics as $eqLogic) {
                     if ($eqLogic->getConfiguration('IP') == config::byKey('ip', 'Creality_Box')) {
                         foreach ($array as $param => $value) {
-                            $cmd = $eqLogic->getCmd('info',$param) ?? $eqLogic->loadCmdFromConf($param);
+                            $existing_cmd = $eqLogic->getCmd('info',$param);
+                            $cmd = is_object($existing_cmd) ? $existing_cmd : $eqLogic->loadCmdFromConf($param);
+
                             log::add('Creality_Box_Daemon', 'info', '	╠ ' . __('Information : ' . $param."=". $value . ' renseignée dans : ', __FILE__) . $eqLogic->getName());
                             log::add('Creality_Box_Daemon', 'info', '	╠====================================================================================');
                             if (is_object($cmd)) {

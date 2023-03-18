@@ -291,6 +291,7 @@ class Creality_Box extends eqLogic
             $cmd->setType('info');
             $cmd->setSubtype('string');
         } else { // si on a récupéré les paramètres de cmd, on les applique à la commande
+            log::add(__CLASS__, 'debug', __("Création de commande : ", __FILE__) . json_encode($param_cmd));
             utils::a2o($cmd, $param_cmd);
         }
         $cmd->save();
