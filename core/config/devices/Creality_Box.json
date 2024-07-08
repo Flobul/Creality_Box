@@ -141,6 +141,21 @@
       "generic_type": "GENERIC_INFO"
     },
     {
+      "name": "Couche totale",
+      "logicalId": "TotalLayer",
+      "type": "info",
+      "subtype": "numeric",
+      "configuration" : {
+          "minValue" : 0
+      },
+      "display": {
+          "icon": "<i class=\"fas fa-layer-group\"><\/i>"
+      },
+      "isVisible": 1,
+      "isHistorized": 1,
+      "generic_type": "GENERIC_INFO"
+    },
+    {
       "name": "Modèle",
       "logicalId": "model",
       "type": "info",

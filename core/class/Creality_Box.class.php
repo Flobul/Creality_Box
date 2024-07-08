@@ -23,10 +23,10 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.52';
+    public static $_pluginVersion = '0.60';
     public static $_widgetPossibility = array('custom' => true);
 
-
+//http://{ip}:81/protocal.csp?fname=Info&opt=main&function=get
     /*     * ***********************Methode statique*************************** */
 
     /**
@@ -36,13 +36,13 @@ class Creality_Box extends eqLogic
     public static function deamon_info()
     {
         $return = array();
-        $return['log'] = 'Creality_Box_Daemon';
+        $return['log'] = __CLASS__ . '_Daemon';
         $return['state'] = 'nok';
         $pid = trim(shell_exec('ps ax | grep "/Creality_Boxd.php" | grep -v "grep" | wc -l'));
         if ($pid != '' && $pid != '0') {
             $return['state'] = 'ok';
         }
-        if (config::byKey('listenport', 'Creality_Box') > '1') {
+        if (config::byKey('listenport', __CLASS__) > '1') {
             $return['launchable'] = 'ok';
         } else {
             $return['launchable'] = 'nok';
@@ -59,7 +59,7 @@ class Creality_Box extends eqLogic
     public static function deamon_start($_debug = false)
     {
 		self::deamon_stop();
-        log::add('Creality_Box_Daemon', 'info', __('Lancement du service Creality_Box', __FILE__));
+        log::add(__CLASS__ . '_Daemon', 'info', __('Lancement du service Creality_Box', __FILE__));
         $deamon_info = self::deamon_info();
         if ($deamon_info['launchable'] != 'ok') {
             throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
@@ -68,12 +68,12 @@ class Creality_Box extends eqLogic
             self::deamon_stop();
             sleep(2);
         }
-        log::add('Creality_Box_Daemon', 'info', __('Lancement du démon Creality_Box', __FILE__));
+        log::add(__CLASS__ . '_Daemon', 'info', __('Lancement du démon Creality_Box', __FILE__));
         $cmd = substr(dirname(__FILE__), 0, strpos(dirname(__FILE__), '/core/class')).'/resources/Creality_Boxd.php';
 
-        $result = exec('sudo php ' . $cmd . ' >> ' . log::getPathToLog('Creality_Box_Daemon') . ' 2>&1 &');
+        $result = exec('sudo php ' . $cmd . ' >> ' . log::getPathToLog(__CLASS__ . '_Daemon') . ' 2>&1 &');
         if (strpos(strtolower($result), 'error') !== false || strpos(strtolower($result), 'traceback') !== false) {
-            log::add('Creality_Box_Daemon', 'error', $result);
+            log::add(__CLASS__ . '_Daemon', 'error', $result);
             return false;
         }
         sleep(1);
@@ -87,10 +87,10 @@ class Creality_Box extends eqLogic
             $i++;
         }
         if ($i >= 30) {
-            log::add('Creality_Box_Daemon', 'error', __('Impossible de lancer le démon Creality_Box_Daemon', __FILE__), 'unableStartDaemon');
+            log::add(__CLASS__ . '_Daemon', 'error', __('Impossible de lancer le démon Creality_Box_Daemon', __FILE__), 'unableStartDaemon');
             return false;
         }
-        log::add('Creality_Box_Daemon', 'info', __('Démon Creality_Box_Daemon lancé', __FILE__));
+        log::add(__CLASS__ . '_Daemon', 'info', __('Démon Creality_Box_Daemon lancé', __FILE__));
         return true;
     }
 
@@ -100,7 +100,7 @@ class Creality_Box extends eqLogic
      */
     public static function deamon_stop()
     {
-        log::add('Creality_Box_Daemon', 'info', __('Arrêt du service Creality_Box', __FILE__));
+        log::add(__CLASS__ . '_Daemon', 'info', __('Arrêt du service Creality_Box', __FILE__));
         $cmd='/Creality_Boxd.php';
         exec('sudo kill -9 $(ps aux | grep "'.$cmd.'" | awk \'{print $2}\')');
         sleep(1);
@@ -121,6 +121,39 @@ class Creality_Box extends eqLogic
         }
     }
 
+    public static function getData($_RAW)
+    {
+        $lines = explode(PHP_EOL,$_RAW);
+        $_RAW = array_slice($lines, 1, count($lines)-2);
+        log::add(__CLASS__, 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Information reçue : ', __FILE__) . $_RAW[0]);
+        return trim($_RAW[0]);
+    }
+
+    /**
+     * Créé l'équipement avec les valeurs du buffer
+     * @param array $_data Tableau des valeurs récupérées dans le buffer
+     * @param string $_IP   IP relevée à la réception du buffer
+     * @return object $Optoma Retourne l'équipement créé
+     */
+    public static function addEquipement($_ip)
+    {
+        $Creality = new Creality_Box();
+        $Creality->setName("Creality Box " . trim($_ip));
+        $Creality->setLogicalId($_ip);
+        $Creality->setObject_id(null);
+        $Creality->setEqType_name(__CLASS__);
+        $Creality->setIsEnable(1);
+        $Creality->setIsVisible(1);
+        $Creality->setConfiguration('IP', trim($_ip));
+        $Creality->save();
+        event::add('jeedom::alert', array(
+					'level' => 'warning',
+					'page' => __CLASS__,
+					'message' => __('L\'équipement ', __FILE__) . $Creality->getHumanName() . __(' vient d\'être créé', __FILE__),
+				));
+        return $Creality;
+    }
+  
     /**
      * Méthode appellée avant la création de l'objet
      * Active et affiche l'objet
@@ -129,8 +162,8 @@ class Creality_Box extends eqLogic
     {
         $this->setIsEnable(1);
         $this->setIsVisible(1);
-        config::save('heartbeat::delay::Creality_Box', 720, 'Creality_Box');
-        config::save('heartbeat::restartDeamon::Creality_Box', 1, 'Creality_Box');
+        config::save('heartbeat::delay::' . __CLASS__, 720, __CLASS__);
+        config::save('heartbeat::restartDeamon::' . __CLASS__, 1, __CLASS__);
     }
 
     /**
@@ -162,49 +195,40 @@ class Creality_Box extends eqLogic
 		}
     }
 
-    public static function getData($_RAW)
-    {
-        $lines = explode(PHP_EOL,$_RAW);
-        $_RAW = array_slice($lines, 1, count($lines)-2);
-        log::add('Creality_Box', 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Information reçue : ', __FILE__) . $_RAW[0]);
-        return trim($_RAW[0]);
-    }
-
     /**
      * Méthode appellée avant la sauvegarde (creation et mise à jour donc) de l'objet
      * Si telnet, récupère modèle, type et versions
      */
     public function preSave()
     {
-        log::add('Creality_Box', 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__);
+        log::add(__CLASS__, 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__);
         if ($this->getConfiguration('hostname', '') == '') {
             $errno = '';
             $errstr = '';
-            $listen = config::byKey('listenport', 'Creality_Box', '23');
-            $ipadr = config::byKey('ip', 'Creality_Box');
-            $id = config::byKey('id', 'Creality_Box', 'root');
-            $pwd = config::byKey('password', 'Creality_Box', 'cxswprin');
+            $listen = config::byKey('listenport', __CLASS__);
+            $ipadr = config::byKey('ip', __CLASS__);
+            $id = config::byKey('id', __CLASS__);
+            $pwd = config::byKey('password', __CLASS__);
 
             $telnet = new telnet_Creality_Box();
             $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
             if ($connect) {
-            log::add('Creality_Box', 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__);
                 sleep(2);
                 $telnet->telnetReadResponse($result);
                 if (!preg_match('/login:/i', $result, $matches)) {
                     $telnet->telnetDisconnect();
-                    log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
+                    log::add(__CLASS__, 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
                 }
                 $telnet->telnetSendCommand($id, $resp);
                 if (!preg_match('/Password:/i', $resp, $matches)) {
                     $telnet->telnetDisconnect();
-                    log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
+                    log::add(__CLASS__, 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
                 }
                 sleep(2);
                 $telnet->telnetSendCommand($pwd, $resp); // BusyBox v1.12.1 (2020-12-16 14:52:12 CST) built-in shell (ash) \nEnter 'help' for a list of built-in commands.\n# "
                 if (!preg_match('/^BusyBox/i', trim($resp), $matches)) {
                     $telnet->telnetDisconnect();
-                    log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
+                    log::add(__CLASS__, 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
                 }
 
                 $telnet->telnetSendCommand('hostname', $resp);
@@ -212,45 +236,6 @@ class Creality_Box extends eqLogic
                 $telnet->telnetDisconnect();
             }
         }
-    }
-
-    /**
-     * Méthode appellée avant la mise à jour de l'objet
-     */
-    public function preUpdate()
-    {
-    }
-
-    /**
-     * Méthode appellée après la mise à jour de l'objet
-     */
-    public function postUpdate()
-    {
-    }
-
-    /**
-     * Créé l'équipement avec les valeurs du buffer
-     * @param array $_data Tableau des valeurs récupérées dans le buffer
-     * @param string $_IP   IP relevée à la réception du buffer
-     * @return object $Optoma Retourne l'équipement créé
-     */
-    public static function addEquipement($_ip)
-    {
-        $Creality = new Creality_Box();
-        $Creality->setName("Creality Box " . trim($_ip));
-        $Creality->setLogicalId($_ip);
-        $Creality->setObject_id(null);
-        $Creality->setEqType_name('Creality_Box');
-        $Creality->setIsEnable(1);
-        $Creality->setIsVisible(1);
-        $Creality->setConfiguration('IP', trim($_ip));
-        $Creality->save();
-        event::add('jeedom::alert', array(
-					'level' => 'warning',
-					'page' => 'Creality_Box',
-					'message' => __('L\'équipement ', __FILE__) . $Creality->getHumanName() . __(' vient d\'être créé', __FILE__),
-				));
-        return $Creality;
     }
 
     /**
@@ -267,12 +252,12 @@ class Creality_Box extends eqLogic
         }
         $content = file_get_contents(dirname(__FILE__) . '/../../core/config/devices/Creality_Box.json');
         if (!is_json($content)) {
-            log::add(__CLASS__, 'debug', __("JSON invalide : ", __FILE__) . 'Creality_Box.json');
+            log::add(__CLASS__, 'debug', __("JSON invalide : ", __FILE__) . __CLASS__ . '.json');
             return false;
         }
         $device = json_decode($content, true);
         if (!is_array($device) || !isset($device['commands'])) {
-            log::add(__CLASS__, 'debug', __("Tableau incorrect : ", __FILE__) . 'Creality_Box.json');
+            log::add(__CLASS__, 'debug', __("Tableau incorrect : ", __FILE__) . __CLASS__ . '.json');
             return false;
         }
 
@@ -300,7 +285,7 @@ class Creality_Box extends eqLogic
 
     public function toHtml($_version = 'dashboard') {
 
-        if ($this->getConfiguration('widgetTemplate') != 1) {
+        if ($this->getDisplay('widgetTmpl') != 1) {
             return parent::toHtml($_version);
         }
         $replace = $this->preToHtml($_version);
@@ -320,10 +305,11 @@ class Creality_Box extends eqLogic
             $replace['#cmd_' . $cmd->getLogicalId() . '_display#'] = (is_object($cmd) && $cmd->getIsVisible()) ? '#cmd_' . $cmd->getLogicalId() . '_display#' : "none";
             $replace['#cmd_' . $cmd->getLogicalId() . '_collectDate#'] = $cmd->getCollectDate();
             $replace['#cmd_' . $cmd->getLogicalId() . '_valueDate#'] = $cmd->getValueDate();
+            $replace['#cmd_' . $cmd->getLogicalId() . '_unite#'] = $cmd->getUnite();
         }
 
-		$html = template_replace($replace, getTemplate('core', $_version, 'Creality_Box.template',__CLASS__));
-        $html = translate::exec($html, 'plugins/Creality_Box/core/template/' . $_version . '/Creality_Box.template.html');
+		$html = template_replace($replace, getTemplate('core', $_version, __CLASS__ . '.template',__CLASS__));
+        $html = translate::exec($html, 'plugins/' . __CLASS__ . '/core/template/' . $_version . '/' . __CLASS__ . '.template.html');
         return $html;
     }
 }
@@ -338,10 +324,10 @@ class Creality_BoxCmd extends cmd
             case 'reboot':
                 $errno  = '';
                 $errstr = '';
-                $listen = config::byKey('listenport', 'Creality_Box', '23');
+                $listen = config::byKey('listenport', 'Creality_Box');
                 $ipadr  = config::byKey('ip', 'Creality_Box');
-                $id     = config::byKey('id', 'Creality_Box', 'root');
-                $pwd    = config::byKey('password', 'Creality_Box', 'cxswprin');
+                $id     = config::byKey('id', 'Creality_Box');
+                $pwd    = config::byKey('password', 'Creality_Box');
 
                 $telnet = new telnet_Creality_Box();
                 $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
@@ -352,18 +338,18 @@ class Creality_BoxCmd extends cmd
                     $telnet->telnetReadResponse($result);
                     if (!preg_match('/login:/i', $result, $matches)) {
                         $telnet->telnetDisconnect();
-                        log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
+                        log::add('Creality_Box', 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'IP ou le port) : ', __FILE__) . $result);
                     }
                     $telnet->telnetSendCommand($id, $resp);
                     if (!preg_match('/Password:/i', $resp, $matches)) {
                         $telnet->telnetDisconnect();
-                        log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
+                        log::add('Creality_Box', 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez l\'identifiant) : ', __FILE__) . $resp);
                     }
                     sleep(2);
                     $telnet->telnetSendCommand($pwd, $resp); // BusyBox v1.12.1 (2020-12-16 14:52:12 CST) built-in shell (ash) \nEnter 'help' for a list of built-in commands.\n# "
                     if (!preg_match('/^BusyBox/i', trim($resp), $matches)) {
                         $telnet->telnetDisconnect();
-                        log::add('Creality_Box', 'error', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
+                        log::add('Creality_Box', 'debug', 'L.' . __LINE__ . ' F.' . __FUNCTION__ . __(' Erreur de connexion (vérifiez le mot de passe) : ', __FILE__) . $resp);
                     }
 
                     $telnet->telnetSendCommand($this->getLogicalId(), $resp);

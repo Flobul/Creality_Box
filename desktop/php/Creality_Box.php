@@ -156,7 +156,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                 <label class="col-sm-4 control-label help" data-help="{{Cocher la case pour utiliser le widget associé au type de l'appareil.}}</br>{{Laissez décoché pour laisser le core générer le widget par défaut.}}">{{Widget équipement}}
                 </label>
                 <div class="col-sm-8">
-                  <input type="checkbox" class="eqLogicAttr form-control" id="widgetTemplate" data-l1key="configuration" data-l2key="widgetTemplate" />
+                  <input type="checkbox" class="eqLogicAttr form-control" id="widgetTemplate" data-l1key="display" data-l2key="widgetTmpl" />
                 </div>
               </div>
 
@@ -184,6 +184,50 @@ $eqLogics = eqLogic::byType($plugin->getId());
                   <thead>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td class="col-sm-4">
+                        <span style="font-size : 1em;">{{Type}}</span>
+                      </td>
+                      <td>
+                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="type">
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col-sm-4">
+                        <span style="font-size : 1em;">{{Modèle}}</span>
+                      </td>
+                      <td>
+                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="model">
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col-sm-4">
+                        <span style="font-size : 1em;">{{Adresse MAC}}</span>
+                      </td>
+                      <td>
+                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="MAC">
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col-sm-4">
+                        <span style="font-size : 1em;">{{Nom d'hôte}}</span>
+                      </td>
+                      <td>
+                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="hostname">
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 </br>
@@ -203,11 +247,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
         <table id="table_cmd" class="table table-bordered table-condensed">
           <thead>
             <tr>
-              <th>{{Id}}</th>
               <th>{{Nom}}</th>
+              <th data-sortable="false" data-filter="false">{{Afficher/Historiser}}</th>
               <th>{{Type}}</th>
-              <th>{{Valeur}}</th>
               <th>{{Paramètres}}</th>
+              <th>{{Valeur}}</th>
               <th>{{Action}}</th>
             </tr>
           </thead>
