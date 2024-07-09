@@ -133,8 +133,4 @@ function printEqLogicTab(_eqLogic) {
     document.querySelectorAll('#idTableEqLogicConfig tbody').forEach(function(tbody) {
         tbody.innerHTML = '';
     });
-
-    if (isset(_eqLogic.configuration.model) && _eqLogic.configuration.model !== undefined) {
-        document.getElementById('img_device').setAttribute("src", 'plugins/Creality_Box/core/config/img/' + _eqLogic.configuration.model + '.png');
-    }
 }

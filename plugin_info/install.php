@@ -18,17 +18,43 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
-function Creality_Box_install() {
-    
+function Creality_Box_install()
+{
+    $cron = cron::byClassAndFunction('Creality_Box', 'update');
+    if (!is_object($cron)) {
+        $cron = new cron();
+        $cron->setClass('Creality_Box');
+        $cron->setFunction('update');
+        $cron->setEnable(1);
+        $cron->setDeamon(0);
+        $cron->setSchedule('* * * * *');
+        $cron->setTimeout(2);
+        $cron->save();
+    }
 }
 
-function Creality_Box_update() {
-    
+function Creality_Box_update()
+{
+    $cron = cron::byClassAndFunction('Creality_Box', 'update');
+    if (!is_object($cron)) {
+        $cron = new cron();
+    }
+    $cron->setClass('Creality_Box');
+    $cron->setFunction('update');
+    $cron->setEnable(1);
+    $cron->setDeamon(0);
+    $cron->setSchedule('* * * * *');
+    $cron->setTimeout(2);
+    $cron->save();
+    $cron->stop();
 }
 
-
-function Creality_Box_remove() {
-    
+function Creality_Box_remove()
+{
+    $cron = cron::byClassAndFunction('Creality_Box', 'update');
+    if (is_object($cron)) {
+        $cron->remove();
+    }
 }
 
 ?>

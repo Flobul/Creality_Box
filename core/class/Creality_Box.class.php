@@ -23,10 +23,9 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.60';
+    public static $_pluginVersion = '0.70';
     public static $_widgetPossibility = array('custom' => true);
 
-//http://{ip}:81/protocal.csp?fname=Info&opt=main&function=get
     /*     * ***********************Methode statique*************************** */
 
     /**
@@ -138,7 +137,7 @@ class Creality_Box extends eqLogic
     public static function addEquipement($_ip)
     {
         $Creality = new Creality_Box();
-        $Creality->setName("Creality Box " . trim($_ip));
+        $Creality->setName('Creality Box ' . trim($_ip));
         $Creality->setLogicalId($_ip);
         $Creality->setObject_id(null);
         $Creality->setEqType_name(__CLASS__);
@@ -174,7 +173,7 @@ class Creality_Box extends eqLogic
         $halt = $this->getCmd('action', 'halt');
         if (!is_object($halt) ) {
             $halt = new Creality_BoxCmd();
-			$halt->setName('Éteindre la box');
+			$halt->setName(__('Éteindre la box', __FILE__));
 			$halt->setEqLogic_id($this->getId());
 			$halt->setType('action');
 			$halt->setSubType('other');
@@ -185,13 +184,23 @@ class Creality_Box extends eqLogic
         $reboot = $this->getCmd('action', 'reboot');
         if (!is_object($reboot) ) {
             $reboot = new Creality_BoxCmd();
-			$reboot->setName('Redémarrer la box');
+			$reboot->setName(__('Redémarrer la box', __FILE__));
 			$reboot->setEqLogic_id($this->getId());
 			$reboot->setType('action');
 			$reboot->setSubType('other');
 			$reboot->setLogicalId('reboot');
             $reboot->setGeneric_type('REBOOT');
 			$reboot->save();
+		}
+        $refresh = $this->getCmd('action', 'refresh');
+        if (!is_object($refresh) ) {
+            $refresh = new Creality_BoxCmd();
+			$refresh->setName(__('Rafraîchir', __FILE__));
+			$refresh->setEqLogic_id($this->getId());
+			$refresh->setType('action');
+			$refresh->setSubType('other');
+			$refresh->setLogicalId('refresh');
+			$refresh->save();
 		}
     }
 
@@ -202,14 +211,16 @@ class Creality_Box extends eqLogic
     public function preSave()
     {
         log::add(__CLASS__, 'info', 'L.' . __LINE__ . ' F.' . __FUNCTION__);
-        if ($this->getConfiguration('hostname', '') == '') {
+        $ipadr = config::byKey('ip', __CLASS__, '');
+        if ($ipadr != '') {
             $errno = '';
             $errstr = '';
             $listen = config::byKey('listenport', __CLASS__);
-            $ipadr = config::byKey('ip', __CLASS__);
             $id = config::byKey('id', __CLASS__);
             $pwd = config::byKey('password', __CLASS__);
 
+            $this->requestGet('http://' . $this->getConfiguration('IP') . ':81/protocal.csp?fname=Info&opt=main&function=get');
+          
             $telnet = new telnet_Creality_Box();
             $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
             if ($connect) {
@@ -236,6 +247,98 @@ class Creality_Box extends eqLogic
                 $telnet->telnetDisconnect();
             }
         }
+        $halt = $this->getCmd('action', 'halt');
+        if (!is_object($halt) ) {
+            $halt = new Creality_BoxCmd();
+			$halt->setName(__('Éteindre la box', __FILE__));
+			$halt->setEqLogic_id($this->getId());
+			$halt->setType('action');
+			$halt->setSubType('other');
+			$halt->setLogicalId('halt');
+            $halt->setGeneric_type('ENERGY_OFF');
+			$halt->save();
+		}
+        $reboot = $this->getCmd('action', 'reboot');
+        if (!is_object($reboot) ) {
+            $reboot = new Creality_BoxCmd();
+			$reboot->setName(__('Redémarrer la box', __FILE__));
+			$reboot->setEqLogic_id($this->getId());
+			$reboot->setType('action');
+			$reboot->setSubType('other');
+			$reboot->setLogicalId('reboot');
+            $reboot->setGeneric_type('REBOOT');
+			$reboot->save();
+		}
+        $refresh = $this->getCmd('action', 'refresh');
+        if (!is_object($refresh) ) {
+            $refresh = new Creality_BoxCmd();
+			$refresh->setName(__('Rafraîchir', __FILE__));
+			$refresh->setEqLogic_id($this->getId());
+			$refresh->setType('action');
+			$refresh->setSubType('other');
+			$refresh->setLogicalId('refresh');
+			$refresh->save();
+		}
+    }
+
+    /**
+     * Met à jour les équipements selon la configuration de l'auto-rafraîchissement.
+     */
+    public static function update()
+    {
+        $autorefresh = config::byKey('autorefresh', __CLASS__, 'never');
+        $eqLogics = eqLogic::byType(__CLASS__);
+        log::add(__CLASS__, 'debug', __FUNCTION__ . ' : ' . __('Démarrage du cron ', __FILE__) . $autorefresh);
+        if ($autorefresh != 'never') {
+            try {
+                $c = new Cron\CronExpression(checkAndFixCron($autorefresh), new Cron\FieldFactory);
+                if ($c->isDue()) {
+                    try {
+                        foreach ($eqLogics as $eqLogic) {
+                            if ($eqLogic->getIsEnable()) {
+                                $time_start = microtime(true);
+                                $eqLogic->requestGet('http://' . $eqLogic->getConfiguration('IP') . ':81/protocal.csp?fname=Info&opt=main&function=get');
+                                $time_end = microtime(true);
+                                $time = round($time_end - $time_start, 2);
+                                log::add(__CLASS__, 'info', __FUNCTION__ . ' : ' . __('Fin du cron équipement ', __FILE__) . $eqLogic->getName() . ' en ' . $time . ' secondes');
+                            }
+                        }
+                    } catch (Exception $exc) {
+                        log::add(__CLASS__, 'error', __('Erreur : ', __FILE__) . $exc->getMessage());
+                    }
+                }
+            } catch (Exception $exc) {
+                log::add(__CLASS__, 'error', __('Expression cron non valide : ', __FILE__) . $autorefresh);
+            }
+        }
+        log::add(__CLASS__, 'debug', __FUNCTION__ . ' : ' . __('fin', __FILE__));
+    }
+
+    public function requestGet($_url)
+    {
+        $request_http = new com_http($_url);
+        $result = $request_http->exec();
+        $array = json_decode($result, true);
+        if (is_array($array)) {
+        log::add(__CLASS__, 'debug', 'TETTT ' . json_encode($array));
+            $this->setConfiguration('ssid', $array['ssid']);
+            $this->setConfiguration('wifipasswd', $array['wifipasswd']);
+            $this->setConfiguration('model', $array['model']);
+            $this->setConfiguration('boxVersion', $array['boxVersion']);
+            $this->setConfiguration('modelVersion', $array['modelVersion']);
+        }
+        foreach ($array as $key => $value) {
+            $existing_cmd = $this->getCmd('info', $key);
+            $cmd = is_object($existing_cmd) ? $existing_cmd : $this->loadCmdFromConf($key);
+
+            log::add(__CLASS__, 'info', __('Information', __FILE__) . ' : ' . $key."=". $value . __(' renseignée dans : ', __FILE__) . $this->getName());
+            if (is_object($cmd)) {
+                $cmd->event($value);
+            }
+        }
+        log::add(__CLASS__, 'debug', 'TETTT2 ' . $this->getConfiguration('modelVersion'));
+//{ "opt": "main", "fname": "Info", "function": "get", "wanmode": "DHCP", "wanphy_link": 1, "link_status": 1, "wanip": "192.168.23.241", "ssid": "CXSWBox-FCEEE6007F34", "channel": 6, "security": 1, "wifipasswd": "12345678", "apclissid": "", "iot_type": "tb", "connect": 1, "model": "Ender-3 V2 ", "fan": 0, "nozzleTemp": 23, "bedTemp": 24, "_1st_nozzleTemp": 0, "_2nd_nozzleTemp": 0, "chamberTemp": 0, "nozzleTemp2": 0, "bedTemp2": 0, "_1st_nozzleTemp2": 0, "_2nd_nozzleTemp2": 0, "chamberTemp2": 0, "print": "localhost", "printProgress": 0, "stop": 0, "printStartTime": "0", "state": 4, "err": 1, "boxVersion": "V3.04b06", "upgrade": "", "upgradeStatus": 0, "tfCard": 1, "dProgress": 0, "layer": 0, "pause": 0, "reboot": 0, "video": 1, "DIDString": "", "APILicense": "", "InitString": "", "printedTimes": 0, "timesLeftToPrint": 0, "ownerId": "C", "curFeedratePct": 100, "curPosition": "X:5.00 Y:20.00 Z:0.30", "autohome": 2, "repoPlrStatus": 0, "modelVersion": "printer hw ver:unknow;printer sw ver:Marlin E3V2-2.0.x-17-Smith3D.M (Mar 18 2021 13:23:44);DWIN hw ver:unknow;DWIN sw ver:unknow;", "mcu_is_print": 0, "printLeftTime": 50, "printJobTime": 213, "netIP": "192.168.23.241", "FilamentType": "", "ConsumablesLen": "", "TotalLayer": 0, "led_state": 0, "error": 0 }
+
     }
 
     /**
@@ -318,6 +421,7 @@ class Creality_BoxCmd extends cmd
 {
     public function execute($_options = array())
     {
+        $eqLogic = $this->getEqlogic();
         log::add('Creality_Box', 'debug', __("Action sur ", __FILE__) . $this->getLogicalId());
         switch ($this->getLogicalId()) {
             case 'halt':
@@ -355,6 +459,9 @@ class Creality_BoxCmd extends cmd
                     $telnet->telnetSendCommand($this->getLogicalId(), $resp);
                     $telnet->telnetDisconnect();
                 }
+                break;
+            case 'refresh':
+                $eqLogic->requestGet('http://' . $eqLogic->getConfiguration('IP') . ':81/protocal.csp?fname=Info&opt=main&function=get');
                 break;
           }
     }

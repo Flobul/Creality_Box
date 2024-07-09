@@ -8,84 +8,65 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
 ?>
 <div class="row row-overflow">
-  <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
-    <legend><i class="fa fa-cog"></i> {{Gestion}}</legend>
+  <div class="col-xs-12 eqLogicThumbnailDisplay">
+    <legend><i class="fas fa-cog"></i> {{Gestion}}</legend>
     <div class="eqLogicThumbnailContainer">
-      <style>
-
-        .eqLogicThumbnailDisplay .eqLogicThumbnailContainer .fas.fa-sign-in-alt.fa-rotate-90 {
-          font-size: 38px !important;
-          color: #ea1b39;
-        }
-
-        .fas.fa-question-circle.tooltips.tooltipstered {
-          color: var(--al-info-color) !important;
-        }
-
-        .eqLogicDisplayCard.cursor {
-          height: 180px !important;
-          text-align: center;
-          background-color: rgb(255, 255, 255);
-          margin-bottom: 10px;
-          padding: 5px;
-          border-top-left-radius: 2px;
-          border-top-right-radius: 2px;
-          border-bottom-right-radius: 2px;
-          border-bottom-left-radius: 2px;
-          width: 160px;
-          margin-left: 10px;
-          left: 0px;
-          top: 0px;
-        }
-      </style>
-
       <div class="cursor eqLogicAction logoPrimary" data-action="add">
         <i class="fas fa-plus-circle"></i>
         <br>
         <span>{{Ajouter}}</span>
       </div>
       <div class="cursor eqLogicAction logoSecondary" data-action="gotoPluginConf">
-        <i class="fa fa-wrench"></i>
+        <i class="fas fa-wrench"></i>
         <br>
         <span>{{Configuration}}</span>
       </div>
-      <div class="cursor logoSecondary" id="bt_healthcreality_Box">
+      <div class="cursor eqLogicAction logoSecondary" id="bt_healthcreality_Box">
         <i class="fas fa-medkit"></i>
-        <span>
-          <center>{{Santé}}</center>
-        </span>
+        <br>
+        <span>{{Santé}}</span>
       </div>
-      <div class="cursor logoSecondary" id="bt_documentationCreality_Box" data-location="<?=$plugin->getDocumentation()?>">
-        <i class="icon loisir-livres"></i>
-        <br><br>
+      <div class="cursor eqLogicAction logoSecondary" id="bt_documentationCreality_Box" data-location="<?=$plugin->getDocumentation()?>">
+        <i class="fas icon loisir-livres"></i>
+        <br>
         <span>{{Documentation}}</span>
       </div>
     </div>
     <legend><i class="fas fa-photo-video"></i> {{Ma box Creality}}</legend>
-    <div class="input-group" style="margin:5px;">
-      <input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
-      <div class="input-group-btn">
-        <a id="bt_resetSearch" class="btn roundedRight" style="width:30px"><i class="fas fa-times"></i></a>
-      </div>
-    </div>
-    <div class="eqLogicThumbnailContainer">
-      <?php
-          foreach ($eqLogics as $eqLogic) {
-              $opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
-              $hostname = $eqLogic->getConfiguration('hostname', '{{Aucun}}');
-              $IP = $eqLogic->getConfiguration('IP','{{Aucune IP}}');
+		<?php
+		if (count($eqLogics) == 0) {
+			echo '<br><div class="text-center" style="font-size:1.2em;font-weight:bold;">{{Aucun équipement Creality Box trouvé, cliquer sur "Ajouter" pour commencer}}</div>';
+		} else {
+			// Champ de recherche
+			echo '<div class="input-group" style="margin:5px;">';
+			echo '<input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic">';
+			echo '<div class="input-group-btn">';
+			echo '<a id="bt_resetSearch" class="btn" style="width:30px"><i class="fas fa-times"></i></a>';
+			echo '<a class="btn roundedRight hidden" id="bt_pluginDisplayAsTable" data-coreSupport="1" data-state="0"><i class="fas fa-grip-lines"></i></a>';
+			echo '</div>';
+			echo '</div>';
+			// Liste des équipements du plugin
+			echo '<div class="eqLogicThumbnailContainer">';
+			foreach ($eqLogics as $eqLogic) {
+                $hostname = $eqLogic->getConfiguration('hostname', '{{Aucun}}');
+                $IP = $eqLogic->getConfiguration('IP','{{Aucune IP}}');
 
-              echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
-              echo '<img src="' . $plugin->getPathImgIcon() . '" height="105" width="95"
-                      title="{{Nom}} : ' . $eqLogic->getName() . '</br>
+				$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
+				echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '" title="{{Nom}} : ' . $eqLogic->getName() . '</br>
                       {{Nom d\'hôte}} : ' . $hostname . '</br>
                       IP : ' . $IP . '">';
-              echo "<br>";
-              echo '<span class="name" style="font-size : 14px;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;">' . $eqLogic->getHumanName(true, true) . '</span>';
-              echo '</div>';
-          }
-      ?>
-    </div>
+				echo '<img src="' . $eqLogic->getImage() . '"/>';
+				echo '<br>';
+				echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+				echo '<span class="hiddenAsCard displayTableRight hidden">';
+				echo ($eqLogic->getIsVisible() == 1) ? '<i class="fas fa-eye" title="{{Equipement visible}}"></i>' : '<i class="fas fa-eye-slash" title="{{Equipement non visible}}"></i>';
+				echo '</span>';
+				echo '</div>';
+			}
+			echo '</div>';
+		}
+		?>
+
   </div>
 
   <div class="col-xs-12 eqLogic" style="display: none;">
@@ -102,13 +83,13 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Équipement}}</a></li>
       <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Commandes}}</a></li>
     </ul>
-    <div class="tab-content" style="height:calc(100% - 50px);overflow:auto;overflow-x: hidden;">
+    <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="eqlogictab">
-        <div class="col-xs-6">
-          <form class="form-horizontal">
-            <fieldset>
+        <form class="form-horizontal">
+          <fieldset>
+            <div class="col-lg-6">
+              <legend><i class="fas fa-sitemap icon_green"></i> {{Général}}</legend>
               <div class="form-group">
-                <legend><i class="fas fa-sitemap icon_green"></i> {{Général}}</legend>
                 <label class="col-sm-4 control-label">{{Nom du vidéoprojecteur}}</label>
                 <div class="col-sm-5">
                   <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
@@ -159,105 +140,100 @@ $eqLogics = eqLogic::byType($plugin->getId());
                   <input type="checkbox" class="eqLogicAttr form-control" id="widgetTemplate" data-l1key="display" data-l2key="widgetTmpl" />
                 </div>
               </div>
+            </div>
 
-            </fieldset>
-            <legend><i class="fas fa-cogs icon_blue"></i> {{Paramètres de la box}}
-            </legend>
-            <fieldset>
-
+            <div class="col-lg-6">
+              <legend><i class="fas fa-cogs icon_blue"></i> {{Paramètres de la box}}</legend>
               <div class="form-group">
                 <label class="col-sm-3 control-label">{{Accès à la page web}}</label>
                 <div class="col-sm-3">
                   <a class="btn btn-default  pull-left" id="bt_webcreality_Box"><i class="fa fa-cogs"></i> {{Interface web Creality_Box}}</a>
                 </div>
               </div>
+            </div>
 
-            </fieldset>
-          </form>
-        </div>
-        <div class="col-sm-6">
-          <form class="form-horizontal">
-            <legend><i class="fas fa-info-circle icon_yellow"></i> {{Informations}}</legend>
-            <fieldset>
-              <div class="form-group">
-                <table id="table_infoseqlogic" class="col-sm-9 table-bordered table-condensed" style="border-radius: 10px;">
-                  <thead>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="col-sm-4">
-                        <span style="font-size : 1em;">{{Type}}</span>
-                      </td>
-                      <td>
-                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
-                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="type">
+            <div class="col-lg-6">
+              <legend><i class="fas fa-info-circle icon_yellow"></i> {{Informations}}</legend>
+                <div class="form-group">
+                  <table id="table_infoseqlogic" class="col-sm-9 table-bordered table-condensed" style="border-radius: 10px;">
+                    <thead>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="col-sm-4">
+                          <span style="font-size : 1em;">{{Type}}</span>
+                        </td>
+                        <td>
+                          <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                            <span class="eqLogicAttr" data-l1key="configuration" data-l2key="type">
+                            </span>
                           </span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="col-sm-4">
-                        <span style="font-size : 1em;">{{Modèle}}</span>
-                      </td>
-                      <td>
-                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
-                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="model">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-sm-4">
+                          <span style="font-size : 1em;">{{Modèle}}</span>
+                        </td>
+                        <td>
+                          <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                            <span class="eqLogicAttr" data-l1key="configuration" data-l2key="model">
+                            </span>
                           </span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="col-sm-4">
-                        <span style="font-size : 1em;">{{Adresse MAC}}</span>
-                      </td>
-                      <td>
-                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
-                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="MAC">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-sm-4">
+                          <span style="font-size : 1em;">{{Adresse MAC}}</span>
+                        </td>
+                        <td>
+                          <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                            <span class="eqLogicAttr" data-l1key="configuration" data-l2key="MAC">
+                            </span>
                           </span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="col-sm-4">
-                        <span style="font-size : 1em;">{{Nom d'hôte}}</span>
-                      </td>
-                      <td>
-                        <span class="label label-default" style="font-size:1em;white-space:unset !important">
-                          <span class="eqLogicAttr" data-l1key="configuration" data-l2key="hostname">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="col-sm-4">
+                          <span style="font-size : 1em;">{{Nom d'hôte}}</span>
+                        </td>
+                        <td>
+                          <span class="label label-default" style="font-size:1em;white-space:unset !important">
+                            <span class="eqLogicAttr" data-l1key="configuration" data-l2key="hostname">
+                            </span>
                           </span>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                </br>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-10">
-                  <center>
-                    <img src="plugins/Creality_Box/core/config/img/Creality_Box.png" data-original=".svg" id="img_device" class="img-responsive" style="max-height:450px;max-width:400px" onerror="this.src='core/img/no_image.gif'" />
-                  </center>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-10">
+                    <center>
+                      <img src="plugins/Creality_Box/core/config/img/Creality_Box.png" data-original=".svg" id="img_device" class="img-responsive" style="max-height:450px;max-width:400px" onerror="this.src='core/img/no_image.gif'" />
+                    </center>
+                  </div>
                 </div>
               </div>
             </fieldset>
           </form>
-        </div>
       </div>
       <div role="tabpanel" class="tab-pane" id="commandtab">
-        <table id="table_cmd" class="table table-bordered table-condensed">
-          <thead>
-            <tr>
-              <th>{{Nom}}</th>
-              <th data-sortable="false" data-filter="false">{{Afficher/Historiser}}</th>
-              <th>{{Type}}</th>
-              <th>{{Paramètres}}</th>
-              <th>{{Valeur}}</th>
-              <th>{{Action}}</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table id="table_cmd" class="table table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>{{Nom}}</th>
+                <th data-sortable="false" data-filter="false">{{Afficher/Historiser}}</th>
+                <th>{{Type}}</th>
+                <th>{{Paramètres}}</th>
+                <th>{{Valeur}}</th>
+                <th>{{Action}}</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

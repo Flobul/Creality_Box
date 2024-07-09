@@ -119,6 +119,30 @@
               </div>
            </div>
         </div>
+        
+         <legend>
+            <i class="fas fa-cogs"></i> {{Configuration du cron}}
+         </legend>
+
+		 <div class="form-group">
+		<label class="col-lg-4 control-label">{{Intervalle de rafraîchissement des informations (cron)}}
+<sup><i class="fas fa-question-circle" title="{{Sélectionnez l'intervalle auquel le plugin ira récupérer les informations sur les serveurs SmartThings.<br/>Par défaut : 1 minute.}}"></i></sup>
+        </label>
+		<div class="col-lg-4">
+			<select class="configKey form-control" data-l1key="autorefresh" >
+				<option value="* * * * *">{{Toutes les minutes}}</option>
+				<option value="*/2 * * * *">{{Toutes les 2 minutes}}</option>
+				<option value="*/3 * * * *">{{Toutes les 3 minutes}}</option>
+				<option value="*/4 * * * *">{{Toutes les 4 minutes}}</option>
+				<option value="*/5 * * * *">{{Toutes les 5 minutes}}</option>
+				<option value="*/10 * * * *">{{Toutes les 10 minutes}}</option>
+				<option value="*/15 * * * *">{{Toutes les 15 minutes}}</option>
+				<option value="*/30 * * * *">{{Toutes les 30 minutes}}</option>
+				<option value="*/45 * * * *">{{Toutes les 45 minutes}}</option>
+				<option value="never">{{Jamais}}</option>
+			</select>
+		</div>
+		</div>
       </div>
    </fieldset>
 </form>
