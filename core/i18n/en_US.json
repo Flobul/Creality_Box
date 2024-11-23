@@ -29,6 +29,10 @@
         "fin": "end",
         "Éteindre la box": "Switch off box"
     },
+    "plugins\/Creality_Box\/core\/template\/dashboard\/Creality_Box.template.html": {
+        "Date de collecte": "Date of collection",
+        "Date de valeur": "Value date"
+    },
     "plugins\/Creality_Box\/desktop\/js\/Creality_Box.js": {
         "Afficher": "Show",
         "Aucune": "None",

@@ -29,6 +29,10 @@
         "fin": "fine",
         "Éteindre la box": "Spegnere la scatola"
     },
+    "plugins\/Creality_Box\/core\/template\/dashboard\/Creality_Box.template.html": {
+        "Date de collecte": "Date de collecte",
+        "Date de valeur": "Date de valeur"
+    },
     "plugins\/Creality_Box\/desktop\/js\/Creality_Box.js": {
         "Afficher": "Mostra",
         "Aucune": "Aucune",
