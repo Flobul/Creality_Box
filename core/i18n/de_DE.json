@@ -29,6 +29,10 @@
         "fin": "ende",
         "Éteindre la box": "Box ausschalten"
     },
+    "plugins\/Creality_Box\/core\/template\/dashboard\/Creality_Box.template.html": {
+        "Date de collecte": "Datum der Abholung",
+        "Date de valeur": "Datum der Wertstellung"
+    },
     "plugins\/Creality_Box\/desktop\/js\/Creality_Box.js": {
         "Afficher": "Anzeige",
         "Aucune": "Irgendein",

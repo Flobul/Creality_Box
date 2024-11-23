@@ -29,6 +29,10 @@
         "fin": "fin",
         "Éteindre la box": "Apagar la caja"
     },
+    "plugins\/Creality_Box\/core\/template\/dashboard\/Creality_Box.template.html": {
+        "Date de collecte": "Fecha de recogida",
+        "Date de valeur": "Fecha valor"
+    },
     "plugins\/Creality_Box\/desktop\/js\/Creality_Box.js": {
         "Afficher": "Mostrar",
         "Aucune": "Alguna",
