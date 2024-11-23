@@ -29,7 +29,7 @@
         <div class="classStatus#id# history cursor" data-cmd_id="#cmd_curFeedratePct_id#">
           <span id="cmd_curFeedratePct_id#id#" class="title" style="display:#cmd_curFeedratePct_display#"></span>
         </div>
-      
+
     </div>
     <div class="classContenant#id#" id="idInPrinting#id#">
         <div class="classStatus#id#" data-cmd_id="#cmd_state_id#">
@@ -56,8 +56,8 @@
           <span id="cmd_percent_id#id#" class="title" style="display:#cmd_percent_display#">
           </span>
         </div>
-      
-      
+
+
     </div>
     <div class="classContenant#id#" id="idErr#id#" style="display:#cmd_err_display#">
         <div class="classStatus#id#" data-cmd_id="#cmd_err_id#">
@@ -115,7 +115,7 @@
             height: 20px !important;
             background-color: var(--sc-form-color);
         }
-      
+
         #progressBar#id# {
             position: absolute;
             width: 0%;
@@ -278,8 +278,9 @@
 
         //durées cmd_printJobTime_id cmd_printLeftTime_id
         jeedom.cmd.addUpdateFunction('#cmd_printJobTime_id#', function(_options) {
+            let unit = _options.unite ? _options.unite : '#cmd_printJobTime_unite#';
             document.getElementById('cmd_printJobTime_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_printJobTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printJobTime_name# :</span> <span class="classValue#id#">'+_options.display_value+' ' +_options.unite+'</span>';
+            document.getElementById('cmd_printJobTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printJobTime_name# :</span> <span class="classValue#id#">'+_options.display_value+' ' + unit +'</span>';
         });
         if (!isNaN('#cmd_printJobTime_id#')) {
             jeedom.cmd.refreshValue([{
@@ -290,10 +291,11 @@
                 unite: '#cmd_printJobTime_unite#'
             }]);
         }
-      
+
         jeedom.cmd.addUpdateFunction('#cmd_printLeftTime_id#', function(_options) {
+            let unit = _options.unite ? _options.unite : '#cmd_printLeftTime_unite#';
             document.getElementById('cmd_printLeftTime_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_printLeftTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printLeftTime_name# :</span> <span class="classValue#id#">'+_options.display_value+' ' +_options.unite+'</span>';
+            document.getElementById('cmd_printLeftTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printLeftTime_name# :</span> <span class="classValue#id#">'+_options.display_value+' ' + unit +'</span>';
         });
         if (!isNaN('#cmd_printLeftTime_id#')) {
             jeedom.cmd.refreshValue([{
