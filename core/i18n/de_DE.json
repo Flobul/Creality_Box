@@ -42,6 +42,7 @@
         "Configuration de la commande": "Befehl Konfiguration",
         "Historiser": "Chronik",
         "Interface Creality Box": "Schnittstelle Creality Box",
+        "Inverser": "Umgekehrt",
         "Liste": "Auflistung",
         "Liste de valeur|texte séparé par ;": "Werteliste|Text getrennt durch;",
         "Max": "Max",
@@ -52,6 +53,9 @@
         "Tester": "Prüfung",
         "Unité": "Unit",
         "Valeur de l\\'information": "Wert der Information"
+    },
+    "plugins\/Creality_Box\/desktop\/js\/configuration.js": {
+        "Modification en cours...": "Änderung wird durchgeführt..."
     },
     "plugins\/Creality_Box\/desktop\/modal\/health.php": {
         "Appareil": "Gerät",
@@ -78,7 +82,6 @@
         "Action": "Aktion",
         "Activer": "Aktivieren",
         "Adresse MAC": "MAC-Adresse",
-        "Afficher\/Historiser": "Anzeigen\/Historisieren",
         "Ajouter": "Addieren",
         "Aucun": "Nein",
         "Aucun équipement Creality Box trouvé, cliquer sur \"Ajouter\" pour commencer": "Keine Creality Box-Geräte gefunden, klicken Sie auf \"Hinzufügen\", um zu beginnen",
@@ -151,6 +154,7 @@
         "Toutes les 4 minutes": "Alle 4 Minuten",
         "Toutes les 45 minutes": "Alle 45 Minuten",
         "Toutes les 5 minutes": "Alle 5 Minuten",
+        "Toutes les heures": "Alle Stunden",
         "Toutes les minutes": "Alle Minuten",
         "Version": "Ausführung",
         "et à fournir les log dans les balises préformatées": "und die Logs in den vorformatierten Tags zu liefern",
