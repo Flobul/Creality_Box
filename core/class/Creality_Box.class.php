@@ -23,11 +23,18 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.70';
+    public static $_pluginVersion = '0.80';
     public static $_widgetPossibility = array('custom' => true);
 
     /*     * ***********************Methode statique*************************** */
 
+    /*
+     * Permet de crypter/décrypter automatiquement des champs de configuration du plugin
+     * Exemple : "param1" & "param2" seront cryptés mais pas "param3"
+     */
+     public static $_encryptConfigKey = array('password');
+
+  
     /**
      * Récupère les infos du démon dans les processus
      * @return array Etat du démon

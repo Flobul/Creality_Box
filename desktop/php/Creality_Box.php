@@ -7,7 +7,7 @@ sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 
 ?>
-<div class="row row-overflow">
+<div class="row row-overflow" id="div_creality_box">
   <div class="col-xs-12 eqLogicThumbnailDisplay">
     <legend><i class="fas fa-cog"></i> {{Gestion}}</legend>
     <div class="eqLogicThumbnailContainer">
@@ -223,10 +223,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
             <thead>
               <tr>
                 <th>{{Nom}}</th>
-                <th data-sortable="false" data-filter="false">{{Afficher/Historiser}}</th>
                 <th>{{Type}}</th>
-                <th>{{Paramètres}}</th>
                 <th>{{Valeur}}</th>
+                <th>{{Paramètres}}</th>
                 <th>{{Action}}</th>
               </tr>
             </thead>

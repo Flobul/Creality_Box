@@ -105,14 +105,17 @@
         }
         .classValue#id# {
             position: absolute;
-            width: 100%;
+            width: 50%;
             right: 20px;
             text-align: right;
             font-size: 14px;
             color: #808080;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
         .progress#id# {
-            height: 20px !important;
+            height: 19px !important;
             background-color: var(--sc-form-color);
         }
 
@@ -120,9 +123,19 @@
             position: absolute;
             width: 0%;
             height: 100%;
-            background-color: #25F;
             border-radius: 25px 0 0 25px;
-        }
+            background-image: 
+              repeating-linear-gradient(
+                45deg,
+                #606dbc,
+                #606dbc 10px,
+                #465298 10px,
+                #465298 20px
+
+              );
+            background-size: 100% 100%;
+          }
+        
         .classProgress#id# {
             display: inline-flex;
             border-radius: 25px;
@@ -130,6 +143,7 @@
             float: right;
             margin-right: 5px;
         }
+      
         .classProgress#id# .classValue#id# {
            z-index: 2;
         }
@@ -272,15 +286,15 @@
                 display_value: '#cmd_printStartTime_value#',
                 collectDate: '#cmd_printStartTime_collectDate#',
                 valueDate: '#cmd_printStartTime_valueDate#',
-                unite: '#cmd_printStartTime_unite#'
+                unit: '#cmd_printStartTime_unite#'
             }]);
         }
 
         //durées cmd_printJobTime_id cmd_printLeftTime_id
         jeedom.cmd.addUpdateFunction('#cmd_printJobTime_id#', function(_options) {
-            let unit = _options.unite ? _options.unite : '#cmd_printJobTime_unite#';
+            let unit = _options.unit ? _options.unit : '#cmd_printJobTime_unite#';
             document.getElementById('cmd_printJobTime_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_printJobTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printJobTime_name# :</span> <span class="classValue#id#">'+_options.display_value+' ' + unit +'</span>';
+            document.getElementById('cmd_printJobTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printJobTime_name# :</span> <span class="classValue#id#">'+parseInt(_options.display_value)+' ' + unit +'</span>';
         });
         if (!isNaN('#cmd_printJobTime_id#')) {
             jeedom.cmd.refreshValue([{
@@ -288,14 +302,14 @@
                 display_value: '#cmd_printJobTime_value#',
                 collectDate: '#cmd_printJobTime_collectDate#',
                 valueDate: '#cmd_printJobTime_valueDate#',
-                unite: '#cmd_printJobTime_unite#'
+                unit: '#cmd_printJobTime_unite#'
             }]);
         }
 
         jeedom.cmd.addUpdateFunction('#cmd_printLeftTime_id#', function(_options) {
-            let unit = _options.unite ? _options.unite : '#cmd_printLeftTime_unite#';
+            let unit = _options.unit ? _options.unit : '#cmd_printLeftTime_unite#';
             document.getElementById('cmd_printLeftTime_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_printLeftTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printLeftTime_name# :</span> <span class="classValue#id#">'+_options.display_value+' ' + unit +'</span>';
+            document.getElementById('cmd_printLeftTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printLeftTime_name# :</span> <span class="classValue#id#">'+parseInt(_options.display_value)+' ' + unit +'</span>';
         });
         if (!isNaN('#cmd_printLeftTime_id#')) {
             jeedom.cmd.refreshValue([{
@@ -303,7 +317,7 @@
                 display_value: '#cmd_printLeftTime_value#',
                 collectDate: '#cmd_printLeftTime_collectDate#',
                 valueDate: '#cmd_printLeftTime_valueDate#',
-                unite: '#cmd_printLeftTime_unite#'
+                unit: '#cmd_printLeftTime_unite#'
             }]);
         }
 

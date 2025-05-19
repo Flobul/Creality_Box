@@ -26,13 +26,13 @@
    sendVarToJS('version', Creality_Box::$_pluginVersion);
 
    ?>
-<form class="form-horizontal">
+<form class="form-horizontal" id="configuration_plugin_creality_box">
    <fieldset>
-      <legend>
-         <i class="fa fa-list-alt"></i> {{Général}}
-      </legend>
       <div class="form-group">
-         <?php
+          <legend>
+             <i class="fa fa-list-alt"></i> {{Général}}
+          </legend>
+          <?php
             $update = $plugin->getUpdate();
             if (is_object($update)) {
                 echo '<div class="col-lg-3">';
@@ -69,48 +69,51 @@
          </div>
       </div>
 
+      <div class="form-group">
          <legend>
             <i class="icon loisir-darth"></i> {{Configuration du démon}}
          </legend>
 
-        <div class="form-group">
-          <label class="col-sm-4 control-label"><strong> {{Adresse IP de la Creality Box}}</strong>
+         <div class="form-group">
+          <label class="col-sm-3 control-label"><strong> {{Adresse IP de la Creality Box}}</strong>
               <sup><i class="fas fa-question-circle" title="{{Entrez l'adresse IP de la de la Creality Box.</br>}}"></i></sup>
           </label>
-          <div class="col-sm-2">
-              <input type="text" class="configKey form-control deviceir" data-l1key="ip" ><br>
+          <div class="col-sm-3">
+              <input type="text" class="configKey form-control deviceir" data-l1key="ip" >
           </div>
         </div>
 
         <div class="form-group">
-          <label class="col-sm-4 control-label"> {{Port d'écoute Telnet}}
+          <label class="col-sm-3 control-label"> {{Port d'écoute Telnet}}
              <sup><i class="fas fa-question-circle" title="{{Port 23 sauf s'il a été modifié.}}"></i></sup>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <input type="text" class="configKey form-control" data-l1key="listenport" placeholder="23"><br>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="col-sm-4 control-label"><strong> {{Identifiant}}</strong>
+          <label class="col-sm-3 control-label"><strong> {{Identifiant}}</strong>
               <sup><i class="fas fa-question-circle" title="{{Entrez l'identifiant.}} {{Par défaut}} : root"></i></sup>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-3">
               <input type="text" class="configKey form-control deviceir" data-l1key="id" placeholder="root"></input>
           </div>
-          <label class="col-sm-2 control-label"><strong> {{Mot de passe}}</strong>
+        </div>
+        <div class="form-group">
+              <label class="col-sm-3 control-label"><strong> {{Mot de passe}}</strong>
               <sup><i class="fas fa-question-circle" title="{{Entrez le mot de passe.}} {{Par défaut}} : cxswprin"></i></sup>
-          </label>
-          <div class="input-group col-sm-2">
-              <input type="text" class="inputPassword configKey form-control" data-l1key="password" placeholder="password">
-              <span class="input-group-btn">
-                  <a class="btn btn-default form-control bt_showPass roundedRight"><i class="fas fa-eye"></i></a>
-              </span>
-          </div>
+              </label>
+              <div class="input-group col-sm-3">
+                <input type="text" class="inputPassword configKey form-control" data-l1key="password">
+                <span class="input-group-btn">
+                    <a class="btn btn-default form-control bt_showPass roundedRight"><i class="fas fa-eye"></i></a>
+                </span>
+            </div>
         </div>
 
         <div class="form-group">
-           <label class="col-sm-4 control-label"> {{Fichier de log}}
+           <label class="col-sm-3 control-label"> {{Fichier de log}}
               <sup><i class="fas fa-question-circle" title="{{Fichier de log d'où seront récupérées les infos.}}"></i></sup>
            </label>
            <div class="form-group">
@@ -120,15 +123,15 @@
            </div>
         </div>
         
+		<div class="form-group">
          <legend>
             <i class="fas fa-cogs"></i> {{Configuration du cron}}
          </legend>
 
-		 <div class="form-group">
-		<label class="col-lg-4 control-label">{{Intervalle de rafraîchissement des informations (cron)}}
+		<label class="col-sm-3 control-label">{{Intervalle de rafraîchissement des informations (cron)}}
 <sup><i class="fas fa-question-circle" title="{{Sélectionnez l'intervalle auquel le plugin ira récupérer les informations sur les serveurs SmartThings.<br/>Par défaut : 1 minute.}}"></i></sup>
         </label>
-		<div class="col-lg-4">
+		<div class="col-sm-3">
 			<select class="configKey form-control" data-l1key="autorefresh" >
 				<option value="* * * * *">{{Toutes les minutes}}</option>
 				<option value="*/2 * * * *">{{Toutes les 2 minutes}}</option>
@@ -139,6 +142,7 @@
 				<option value="*/15 * * * *">{{Toutes les 15 minutes}}</option>
 				<option value="*/30 * * * *">{{Toutes les 30 minutes}}</option>
 				<option value="*/45 * * * *">{{Toutes les 45 minutes}}</option>
+				<option value="*/60 * * * *">{{Toutes les heures}}</option>
 				<option value="never">{{Jamais}}</option>
 			</select>
 		</div>
