@@ -42,6 +42,7 @@
         "Configuration de la commande": "Configuração do comando",
         "Historiser": "Histórico",
         "Interface Creality Box": "Interface Creality Box",
+        "Inverser": "Inverter",
         "Liste": "Lista",
         "Liste de valeur|texte séparé par ;": "Lista de valor|texto separados por;",
         "Max": "Máx.",
@@ -52,6 +53,9 @@
         "Tester": "Testar",
         "Unité": "Unidade",
         "Valeur de l\\'information": "Valor da informação"
+    },
+    "plugins\/Creality_Box\/desktop\/js\/configuration.js": {
+        "Modification en cours...": "Modificação em curso..."
     },
     "plugins\/Creality_Box\/desktop\/modal\/health.php": {
         "Appareil": "Dispositivo",
@@ -78,7 +82,6 @@
         "Action": "Ação",
         "Activer": "Ativar",
         "Adresse MAC": "Endereço MAC",
-        "Afficher\/Historiser": "Mostrar\/Ocultar",
         "Ajouter": "Adicionar",
         "Aucun": "Nenhum",
         "Aucun équipement Creality Box trouvé, cliquer sur \"Ajouter\" pour commencer": "Não foi encontrado nenhum equipamento Creality Box, clique em \"Adicionar\" para iniciar",
@@ -151,6 +154,7 @@
         "Toutes les 4 minutes": "A cada 4 minutos",
         "Toutes les 45 minutes": "A cada 45 minutos",
         "Toutes les 5 minutes": "A cada 5 minutos",
+        "Toutes les heures": "Todas as horas",
         "Toutes les minutes": "Cada minuto",
         "Version": "Versão",
         "et à fournir les log dans les balises préformatées": "e para fornecer registos em etiquetas pré-formatadas",
