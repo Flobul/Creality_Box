@@ -1,458 +1,622 @@
 {
-  "commands": [
-    {
-      "name": "Température actuelle de la buse",
-      "logicalId": "nozzleTemp",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "°C",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "TEMPERATURE",
-      "configuration": {
-          "minValue": 0,
-          "maxValue": 260
-      },
-      "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
-      }
-    },
-    {
-      "name": "Température de consigne de la buse",
-      "logicalId": "nozzleTemp2",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "°C",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "TEMPERATURE",
-      "configuration": {
-          "minValue": 0,
-          "maxValue": 260
-      },
-      "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
-      }
-    },
-    {
-      "name": "Température actuelle du lit",
-      "logicalId": "bedTemp",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "°C",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "TEMPERATURE",
-      "configuration": {
-          "minValue": 0,
-          "maxValue": 110
-      },
-      "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
-      }
-    },
-    {
-      "name": "Température de consigne du lit",
-      "logicalId": "bedTemp2",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "°C",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "TEMPERATURE",
-      "configuration": {
-          "minValue": 0,
-          "maxValue": 110
-      },
-      "display": {
-          "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
-      }
-    },
-    {
-      "name": "Progression printProgress",
-      "logicalId": "printProgress",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "%",
-      "configuration" : {
-          "minValue" : 0,
-          "maxValue" : 100
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Progression percent",
-      "logicalId": "percent",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "%",
-      "configuration" : {
-          "calculValueOffset" : "#value#/100",
-          "minValue" : 0,
-          "maxValue" : 100
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Progression dProgress",
-      "logicalId": "dProgress",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "%",
-      "configuration" : {
-          "minValue" : 0,
-          "maxValue" : 100
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Vitesse",
-      "logicalId": "curFeedratePct",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "%",
-      "configuration" : {
-          "minValue" : 0,
-          "maxValue" : 999
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Couche actuelle",
-      "logicalId": "layer",
-      "type": "info",
-      "subtype": "numeric",
-      "configuration" : {
-          "minValue" : 0
-      },
-      "display": {
-          "icon": "<i class=\"fas fa-layer-group\"><\/i>"
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Couche totale",
-      "logicalId": "TotalLayer",
-      "type": "info",
-      "subtype": "numeric",
-      "configuration" : {
-          "minValue" : 0
-      },
-      "display": {
-          "icon": "<i class=\"fas fa-layer-group\"><\/i>"
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Modèle",
-      "logicalId": "model",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 0,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Vitesse du ventilateur",
-      "logicalId": "fan",
-      "type": "info",
-      "subtype": "numeric",
-      "unite": "%",
-      "configuration" : {
-          "calculValueOffset" : "#value#*100",
-          "minValue" : 0,
-          "maxValue" : 100
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "FAN_SPEED",
-      "display": {
-          "icon": "<i class=\"fas fa-fan\"><\/i>"
-      }
-    },
-    {
-      "name": "Etat de l'impression",
-      "logicalId": "state",
-      "type": "info",
-      "subtype": "numeric",
-      "configuration" : {
-          "minValue" : 0,
-          "historizeMode" : "none"
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Identifiant de l'imprimante",
-      "logicalId": "printId",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 0,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Nombre d'impressions",
-      "logicalId": "printedTimes",
-      "type": "info",
-      "subtype": "numeric",
-      "configuration" : {
-          "minValue" : 0
-      },
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Temps restant pour l'impression",
-      "logicalId": "timesLeftToPrint",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "TIMER",
-      "display": {
-          "icon": "<i class=\"fas fa-hourglass-half \"><\/i>"
-      }
-    },
-    {
-      "name": "Modèle d'imprimante",
-      "logicalId": "modelVersion",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 0,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Heure de début d'impression",
-      "logicalId": "printStartTime",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO",
-      "display": {
-          "icon": "<i class=\"far fa-clock \"><\/i>"
-      }
-    },
-    {
-      "name": "Erreur d'impression",
-      "logicalId": "err",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Position de la tête",
-      "logicalId": "curPosition",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Lien GCode",
-      "logicalId": "print",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Vidéo",
-      "logicalId": "video",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Statut de la mise à jour",
-      "logicalId": "upgradeStatus",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Mise à jour",
-      "logicalId": "upgrade",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Carte TransFlash",
-      "logicalId": "tfCard",
-      "type": "info",
-      "subtype": "binary",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Dépôt",
-      "logicalId": "repo",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Arrêté",
-      "logicalId": "stop",
-      "type": "info",
-      "subtype": "binary",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Redémarré",
-      "logicalId": "reboot",
-      "type": "info",
-      "subtype": "binary",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "En pause",
-      "logicalId": "pause",
-      "type": "info",
-      "subtype": "binary",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Consommables",
-      "logicalId": "report_consumables",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Temps de l'impression restant",
-      "logicalId": "printLeftTime",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "unite": "s",
-      "configuration" : {
-          "minValue" : 0
-      },
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Temps d'impression écoulé",
-      "logicalId": "printJobTime",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "unite": "s",
-      "configuration" : {
-          "minValue" : 0
-      },
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Version de la box",
-      "logicalId": "boxVersion",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 0,
-      "isHistorized": 0,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Retour chariot",
-      "logicalId": "autohome",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Connexion",
-      "logicalId": "connect",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Filament utilisé en cm",
-      "logicalId": "ConsumablesLen",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "unite": "cm",
-      "configuration" : {
-          "minValue" : 0
-      },
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Filament utilisé en g",
-      "logicalId": "ConsumablesWeight",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "unite": "g",
-      "configuration" : {
-          "minValue" : 0
-      },
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Filament estimé",
-      "logicalId": "FilamentLen",
-      "type": "info",
-      "subtype": "numeric",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    },
-    {
-      "name": "Adresse IP",
-      "logicalId": "netIP",
-      "type": "info",
-      "subtype": "string",
-      "isVisible": 1,
-      "isHistorized": 1,
-      "generic_type": "GENERIC_INFO"
-    }
-  ]
+    "commands": [
+        {
+            "name": "Température actuelle de la buse",
+            "logicalId": "nozzleTemp",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "°C",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "TEMPERATURE",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 260
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+            }
+        },
+        {
+            "name": "Température de consigne de la buse",
+            "logicalId": "nozzleTemp2",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "°C",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "TEMPERATURE",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 260
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+            }
+        },
+        {
+            "name": "Changer la température de consigne de la buse",
+            "logicalId": "nozzleTemp2::set",
+            "type": "action",
+            "subtype": "slider",
+            "unite": "°C",
+            "isVisible": 1,
+            "generic_type": "THERMOSTAT_SET_SETPOINT",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 260,
+                "command": "nozzleTemp2"
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+            }
+        },
+        {
+            "name": "Température actuelle du lit",
+            "logicalId": "bedTemp",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "°C",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "TEMPERATURE",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 110
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+            }
+        },
+        {
+            "name": "Température de consigne du lit",
+            "logicalId": "bedTemp2",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "°C",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "TEMPERATURE",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 110
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+            }
+        },
+        {
+            "name": "Changer la température de consigne du lit",
+            "logicalId": "bedTemp2::set",
+            "type": "action",
+            "subtype": "slider",
+            "unite": "°C",
+            "isVisible": 1,
+            "generic_type": "THERMOSTAT_SET_SETPOINT",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 260,
+                "command": "bedTemp2"
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-temperature-high\"><\/i>"
+            }
+        },
+        {
+            "name": "Progression printProgress",
+            "logicalId": "printProgress",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "%",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 100
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Progression percent",
+            "logicalId": "percent",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "%",
+            "configuration": {
+                "calculValueOffset": "#value#/100",
+                "minValue": 0,
+                "maxValue": 100
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Progression dProgress",
+            "logicalId": "dProgress",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "%",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 100
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Vitesse",
+            "logicalId": "curFeedratePct",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "%",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 999
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Vitesse",
+            "logicalId": "curFeedratePct::set",
+            "type": "action",
+            "subtype": "slider",
+            "unite": "%",
+            "isVisible": 1,
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 999,
+                "command": "setFeedratePct"
+            }
+        },
+        {
+            "name": "Couche actuelle",
+            "logicalId": "layer",
+            "type": "info",
+            "subtype": "numeric",
+            "configuration": {
+                "minValue": 0
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-layer-group\"><\/i>"
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Couche totale",
+            "logicalId": "TotalLayer",
+            "type": "info",
+            "subtype": "numeric",
+            "configuration": {
+                "minValue": 0
+            },
+            "display": {
+                "icon": "<i class=\"fas fa-layer-group\"><\/i>"
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Modèle",
+            "logicalId": "model",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 0,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Vitesse du ventilateur",
+            "logicalId": "fan",
+            "type": "info",
+            "subtype": "numeric",
+            "unite": "%",
+            "configuration": {
+                "calculValueOffset": "#value#*100",
+                "minValue": 0,
+                "maxValue": 100
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "FAN_SPEED",
+            "display": {
+                "icon": "<i class=\"fas fa-fan\"><\/i>"
+            }
+        },
+        {
+            "name": "Changer la vitesse du ventilateur",
+            "logicalId": "fan::set",
+            "type": "action",
+            "subtype": "slider",
+            "unite": "%",
+            "configuration": {
+                "minValue": 0,
+                "maxValue": 100,
+                "command": "fan"
+            },
+            "isVisible": 1,
+            "generic_type": "FAN_SPEED",
+            "display": {
+                "icon": "<i class=\"fas fa-fan\"><\/i>"
+            }
+        },
+        {
+            "name": "Etat de l'impression",
+            "logicalId": "state",
+            "type": "info",
+            "subtype": "numeric",
+            "configuration": {
+                "minValue": 0,
+                "historizeMode": "none"
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Identifiant de l'imprimante",
+            "logicalId": "printId",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 0,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Nombre d'impressions",
+            "logicalId": "printedTimes",
+            "type": "info",
+            "subtype": "numeric",
+            "configuration": {
+                "minValue": 0
+            },
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Temps restant pour l'impression",
+            "logicalId": "timesLeftToPrint",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "TIMER",
+            "display": {
+                "icon": "<i class=\"fas fa-hourglass-half \"><\/i>"
+            }
+        },
+        {
+            "name": "Modèle d'imprimante",
+            "logicalId": "modelVersion",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 0,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Heure de début d'impression",
+            "logicalId": "printStartTime",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO",
+            "display": {
+                "icon": "<i class=\"far fa-clock \"><\/i>"
+            }
+        },
+        {
+            "name": "Erreur d'impression",
+            "logicalId": "err",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Position de la tête",
+            "logicalId": "curPosition",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Lien GCode",
+            "logicalId": "print",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Vidéo",
+            "logicalId": "video",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Statut de la mise à jour",
+            "logicalId": "upgradeStatus",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Mise à jour",
+            "logicalId": "upgrade",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Carte TransFlash",
+            "logicalId": "tfCard",
+            "type": "info",
+            "subtype": "binary",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Dépôt",
+            "logicalId": "repo",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Arrêté",
+            "logicalId": "stop",
+            "type": "info",
+            "subtype": "binary",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Redémarré",
+            "logicalId": "reboot",
+            "type": "info",
+            "subtype": "binary",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "En pause",
+            "logicalId": "pause",
+            "type": "info",
+            "subtype": "binary",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Consommables",
+            "logicalId": "report_consumables",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Temps de l'impression restant",
+            "logicalId": "printLeftTime",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "unite": "s",
+            "configuration": {
+                "minValue": 0
+            },
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Temps d'impression écoulé",
+            "logicalId": "printJobTime",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "unite": "s",
+            "configuration": {
+                "minValue": 0
+            },
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Version de la box",
+            "logicalId": "boxVersion",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 0,
+            "isHistorized": 0,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Retour chariot",
+            "logicalId": "autohome",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Connexion",
+            "logicalId": "connect",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Filament utilisé en cm",
+            "logicalId": "ConsumablesLen",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "unite": "cm",
+            "configuration": {
+                "minValue": 0
+            },
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Filament utilisé en g",
+            "logicalId": "ConsumablesWeight",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "unite": "g",
+            "configuration": {
+                "minValue": 0
+            },
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "En ligne",
+            "logicalId": "link_status",
+            "type": "info",
+            "subtype": "binary",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "display": {
+                "icon": "<i class=\"icon fas fa-globe icon_green\"><\/i>"
+            },
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Filament estimé",
+            "logicalId": "FilamentLen",
+            "type": "info",
+            "subtype": "numeric",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Adresse IP",
+            "logicalId": "netIP",
+            "type": "info",
+            "subtype": "string",
+            "isVisible": 1,
+            "isHistorized": 1,
+            "generic_type": "GENERIC_INFO"
+        },
+        {
+            "name": "Mettre en pause l'impression",
+            "logicalId": "pause::on",
+            "type": "action",
+            "subtype": "other",
+            "configuration": {
+                "command": "pause",
+                "commandValue": "1"
+            },
+            "display": {
+                "icon": "<i class=\"icon fas fa-pause icon_blue\"><\/i>"
+            },
+            "isVisible": 1
+        },
+        {
+            "name": "Reprendre l'impression",
+            "logicalId": "pause::off",
+            "type": "action",
+            "subtype": "other",
+            "configuration": {
+                "command": "pause",
+                "commandValue": "0"
+            },
+            "display": {
+                "icon": "<i class=\"icon fas fa-play icon_blue\"><\/i>"
+            },
+            "isVisible": 1
+        },
+        {
+            "name": "Arrêter l'impression",
+            "logicalId": "stop::set",
+            "type": "action",
+            "subtype": "other",
+            "configuration": {
+                "command": "stop",
+                "commandValue": "1"
+            },
+            "isVisible": 1,
+            "display": {
+                "icon": "<i class=\"icon fas fa-stop icon_red\"><\/i>"
+            }
+        },
+        {
+            "name": "Retour position initiale",
+            "logicalId": "autohome::set",
+            "type": "action",
+            "subtype": "other",
+            "configuration": {
+                "command": "autohome",
+                "commandValue": "0"
+            },
+            "display": {
+                "icon": "<i class=\"icon fas fa-home\"><\/i>"
+            },
+            "isVisible": 1
+        },
+        {
+            "name": "Éteindre la box",
+            "logicalId": "halt",
+            "type": "action",
+            "subtype": "other",
+            "generic_type": "ENERGY_OFF",
+            "display": {
+                "icon": "<i class=\"icon fas fa-power-off icon_red\"><\/i>"
+            },
+            "isVisible": 1
+        },
+        {
+            "name": "Redémarrer",
+            "logicalId": "reboot",
+            "type": "action",
+            "subtype": "other",
+            "generic_type": "REBOOT",
+            "display": {
+                "icon": "<i class=\"icon fas fa-undo icon_orange\"><\/i>"
+            },
+            "isVisible": 1
+        },
+        {
+            "name": "Rafraîchir",
+            "logicalId": "refresh",
+            "type": "action",
+            "subtype": "other",
+            "configuration": {
+                "isRefreshCmd": 1
+            },
+            "isVisible": 1
+        }
+    ]
 }

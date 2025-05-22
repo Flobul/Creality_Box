@@ -177,38 +177,27 @@ class Creality_Box extends eqLogic
      */
     public function postInsert()
     {
-        $halt = $this->getCmd('action', 'halt');
-        if (!is_object($halt) ) {
-            $halt = new Creality_BoxCmd();
-			$halt->setName(__('Éteindre la box', __FILE__));
-			$halt->setEqLogic_id($this->getId());
-			$halt->setType('action');
-			$halt->setSubType('other');
-			$halt->setLogicalId('halt');
-            $halt->setGeneric_type('ENERGY_OFF');
-			$halt->save();
-		}
-        $reboot = $this->getCmd('action', 'reboot');
-        if (!is_object($reboot) ) {
-            $reboot = new Creality_BoxCmd();
-			$reboot->setName(__('Redémarrer la box', __FILE__));
-			$reboot->setEqLogic_id($this->getId());
-			$reboot->setType('action');
-			$reboot->setSubType('other');
-			$reboot->setLogicalId('reboot');
-            $reboot->setGeneric_type('REBOOT');
-			$reboot->save();
-		}
-        $refresh = $this->getCmd('action', 'refresh');
-        if (!is_object($refresh) ) {
-            $refresh = new Creality_BoxCmd();
-			$refresh->setName(__('Rafraîchir', __FILE__));
-			$refresh->setEqLogic_id($this->getId());
-			$refresh->setType('action');
-			$refresh->setSubType('other');
-			$refresh->setLogicalId('refresh');
-			$refresh->save();
-		}
+        if (!is_object($this->getCmd('action', 'halt'))) {
+            $this->loadCmdFromConf('halt');          
+        }
+        if (!is_object($this->getCmd('action', 'reboot'))) {
+            $this->loadCmdFromConf('reboot');          
+        }
+        if (!is_object($this->getCmd('action', 'refresh'))) {
+            $this->loadCmdFromConf('refresh');          
+        }
+        if (!is_object($this->getCmd('action', 'stop::set'))) {
+            $this->loadCmdFromConf('stop::set');          
+        }
+        if (!is_object($this->getCmd('action', 'pause::on'))) {
+            $this->loadCmdFromConf('pause::on');          
+        }
+        if (!is_object($this->getCmd('action', 'pause::off'))) {
+            $this->loadCmdFromConf('pause::off');          
+        }
+        if (!is_object($this->getCmd('action', 'autohome::set'))) {
+            $this->loadCmdFromConf('autohome::set');          
+        }
     }
 
     /**
@@ -254,38 +243,27 @@ class Creality_Box extends eqLogic
                 $telnet->telnetDisconnect();
             }
         }
-        $halt = $this->getCmd('action', 'halt');
-        if (!is_object($halt) ) {
-            $halt = new Creality_BoxCmd();
-			$halt->setName(__('Éteindre la box', __FILE__));
-			$halt->setEqLogic_id($this->getId());
-			$halt->setType('action');
-			$halt->setSubType('other');
-			$halt->setLogicalId('halt');
-            $halt->setGeneric_type('ENERGY_OFF');
-			$halt->save();
-		}
-        $reboot = $this->getCmd('action', 'reboot');
-        if (!is_object($reboot) ) {
-            $reboot = new Creality_BoxCmd();
-			$reboot->setName(__('Redémarrer la box', __FILE__));
-			$reboot->setEqLogic_id($this->getId());
-			$reboot->setType('action');
-			$reboot->setSubType('other');
-			$reboot->setLogicalId('reboot');
-            $reboot->setGeneric_type('REBOOT');
-			$reboot->save();
-		}
-        $refresh = $this->getCmd('action', 'refresh');
-        if (!is_object($refresh) ) {
-            $refresh = new Creality_BoxCmd();
-			$refresh->setName(__('Rafraîchir', __FILE__));
-			$refresh->setEqLogic_id($this->getId());
-			$refresh->setType('action');
-			$refresh->setSubType('other');
-			$refresh->setLogicalId('refresh');
-			$refresh->save();
-		}
+        if (!is_object($this->getCmd('action', 'halt'))) {
+            $this->loadCmdFromConf('halt');          
+        }
+        if (!is_object($this->getCmd('action', 'reboot'))) {
+            $this->loadCmdFromConf('reboot');          
+        }
+        if (!is_object($this->getCmd('action', 'refresh'))) {
+            $this->loadCmdFromConf('refresh');          
+        }
+        if (!is_object($this->getCmd('action', 'stop::set'))) {
+            $this->loadCmdFromConf('stop::set');          
+        }
+        if (!is_object($this->getCmd('action', 'pause::on'))) {
+            $this->loadCmdFromConf('pause::on');          
+        }
+        if (!is_object($this->getCmd('action', 'pause::off'))) {
+            $this->loadCmdFromConf('pause::off');          
+        }
+        if (!is_object($this->getCmd('action', 'autohome::set'))) {
+            $this->loadCmdFromConf('autohome::set');          
+        }
     }
 
     /**
@@ -308,6 +286,8 @@ class Creality_Box extends eqLogic
                                 $time_end = microtime(true);
                                 $time = round($time_end - $time_start, 2);
                                 log::add(__CLASS__, 'info', __FUNCTION__ . ' : ' . __('Fin du cron équipement ', __FILE__) . $eqLogic->getName() . ' en ' . $time . ' secondes');
+                                $eqLogic->createAndUpdateFileListCommand();
+                                $eqLogic->checkAndCreateActionCommands();
                             }
                         }
                     } catch (Exception $exc) {
@@ -390,7 +370,55 @@ class Creality_Box extends eqLogic
             utils::a2o($cmd, $param_cmd);
         }
         $cmd->save();
+        if ($link = $cmd->getConfiguration('command', '') != '') {
+            $cmdLinked = eqLogic::byLogicalId($link, $this->getId());
+            if (is_object($cmdLinked)) {
+                $cmd->setValue($cmdLinked->getId());
+                $cmd->save();
+                log::add(__CLASS__, 'debug', '-> Valeur lié depuis : '.$link." (".$cmdLinked->getId().")");
+            } else {
+                log::add(__CLASS__, 'warning', '-> Liaison impossible objet introuvable : '.$link);
+            }
+        }
         return $cmd;
+    }
+  
+    public function checkAndCreateActionCommands() {
+
+    }
+  
+    public function createAndUpdateFileListCommand() {
+        $ftp = ftp_connect($this->getConfiguration('IP'));
+        $login_result = ftp_login($ftp, 'anonymous', '');
+        $contents = ftp_nlist($ftp, "/mmcblk0p1/creality/gztemp/");
+        $cmd = $this->getCmd('action', 'print::set');
+        $listValue = 'localhost|Locale;';
+        foreach ($contents as $file) {
+            $listValue .= $file . '|'. basename($file) . ';';
+        }
+        $listValue = substr($listValue, 0, -1);
+        if (!is_object($cmd)) {
+            $cmd = new Creality_BoxCmd();
+			$cmd->setName(__("Lancer l'impression", __FILE__));
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setType('action');
+			$cmd->setSubType('select');
+			$cmd->setLogicalId('print::set');
+            $cmd->setConfiguration('listValue', $listValue);
+            $cmd->setDisplay("icon", "<i class=\"icon fas fa-play icon_green\"><\/i>");
+            $cmd->setConfiguration('updateCmdToValue', '#select#');
+            $printCmd = $this->getCmd('info', 'print');
+            if (is_object($printCmd)) {
+                $cmd->setConfiguration('updateCmdId', $printCmd->getId());
+                $cmd->setValue($printCmd->getId());
+            }
+			$cmd->save();
+        }
+        if (is_object($cmd) && $cmd->getConfiguration('listValue') != $listValue) {
+            $cmd->setConfiguration('listValue', $listValue)->save();
+        }
+
+        log::add(__CLASS__, 'info', __FUNCTION__ . ' : ' . __('Fin du cron $contents ', __FILE__) .json_encode($contents));
     }
 
     public function toHtml($_version = 'dashboard') {
@@ -416,8 +444,55 @@ class Creality_Box extends eqLogic
             $replace['#cmd_' . $cmd->getLogicalId() . '_collectDate#'] = $cmd->getCollectDate();
             $replace['#cmd_' . $cmd->getLogicalId() . '_valueDate#'] = $cmd->getValueDate();
             $replace['#cmd_' . $cmd->getLogicalId() . '_unite#'] = $cmd->getUnite();
+            $replace['#cmd_' . $cmd->getLogicalId() . '_maxValue#'] = $cmd->getConfiguration('maxValue');
+            $replace['#cmd_' . $cmd->getLogicalId() . '_minValue#'] = $cmd->getConfiguration('minValue');
         }
-
+        $cmdHtml = '';
+        foreach ($this->getCmd('action', null) as $cmd) {
+            if (isset($replace['#refresh_id#']) && $cmd->getId() == $replace['#refresh_id#']) {
+                continue;
+            }
+            if ($cmd->getSubType() == 'other') {
+                $cmdHtml .= $cmd->toHtml($_version, '');
+            } else {
+                $replace['#cmd_' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+                $replace['#cmd_' . $cmd->getLogicalId() . '_name#'] = $cmd->getName();
+                $replace['#cmd_' . $cmd->getLogicalId() . '_display#'] = (is_object($cmd) && $cmd->getIsVisible()) ? '#cmd_' . $cmd->getLogicalId() . '_display#' : "none";
+                $replace['#cmd_' . $cmd->getLogicalId() . '_unite#'] = $cmd->getUnite();
+                if ($cmd->getConfiguration('listValue', '') != '') {
+                    $listOption = '';
+                    $elements = explode(';', $cmd->getConfiguration('listValue', ''));
+                    $foundSelect = false;
+                    foreach ($elements as $element) {
+                        $coupleArray = explode('|', $element);
+                        $cmdValue = $cmd->getCmdValue();
+                        if (is_object($cmdValue) && $cmdValue->getType() == 'info') {
+                            if (basename($cmdValue->execCmd()) == $coupleArray[0] || basename($cmdValue->execCmd()) == $coupleArray[1]) {
+                                $listOption .= '<option value="' . $coupleArray[0] . '" selected>' . $coupleArray[1] . '</option>';
+                                $foundSelect = true;
+                            } else {
+                                $listOption .= '<option value="' . $coupleArray[0] . '">' . $coupleArray[1] . '</option>';
+                            }
+                        } else {
+                            if (isset($coupleArray[1])) {
+                                $listOption .= '<option value="' . $coupleArray[0] . '">' . $coupleArray[1] . '</option>';
+                            } else {
+                                $listOption .= '<option value="' . $coupleArray[0] . '">' . $coupleArray[0] . '</option>';
+                            }
+                        }
+                    }
+                    if (!$foundSelect) {
+                        $listOption = '<option value="">Aucun</option>' . $listOption;
+                    }
+                    $replace['#cmd_' . $cmd->getLogicalId() . '_listValue#'] = $listOption;          
+                }
+                $cmdValue = $cmd->getCmdValue();
+                if (is_object($cmdValue) && $cmdValue->getType() == 'info') {
+                    $replace['#cmd_' . $cmd->getLogicalId() . '_value#'] = $cmdValue->execCmd();
+                }
+            }
+        }
+        $replace['#cmd#'] = $cmdHtml;
 		$html = template_replace($replace, getTemplate('core', $_version, __CLASS__ . '.template',__CLASS__));
         $html = translate::exec($html, 'plugins/' . __CLASS__ . '/core/template/' . $_version . '/' . __CLASS__ . '.template.html');
         return $html;
@@ -430,6 +505,27 @@ class Creality_BoxCmd extends cmd
     {
         $eqLogic = $this->getEqlogic();
         log::add('Creality_Box', 'debug', __("Action sur ", __FILE__) . $this->getLogicalId());
+
+        switch ($this->getSubType()) {
+            case 'slider':
+                $replace['#slider#'] = intval($_options['slider']);
+                break;
+            case 'color':
+                $replace['#color#'] = $_options['color'];
+                break;
+            case 'select':
+                $replace['#select#'] = $_options['select'];
+                break;
+            case 'message':
+                $replace['#title#'] = $_options['title'];
+                $replace['#message#'] = $_options['message'];
+                if ($_options['message'] == '' && $_options['title'] == '') {
+                    throw new Exception(__('Le message et le sujet ne peuvent pas être vide', __FILE__));
+                }
+                break;
+        }
+        $value = str_replace(array_keys($replace),$replace,$this->getConfiguration('updateCmdToValue', ''));
+      
         switch ($this->getLogicalId()) {
             case 'halt':
             case 'reboot':
@@ -469,6 +565,18 @@ class Creality_BoxCmd extends cmd
                 break;
             case 'refresh':
                 $eqLogic->requestGet('http://' . $eqLogic->getConfiguration('IP') . ':81/protocal.csp?fname=Info&opt=main&function=get');
+                break;
+            case 'autohome::set':
+            case 'stop::set':
+            case 'pause::on':
+            case 'pause::off':
+                $eqLogic->requestGet('http://' . $eqLogic->getConfiguration('IP') . ':81/protocal.csp?fname=net&opt=iot_conf&function=set&'.$this->getConfiguration('command').'='.$this->getConfiguration('commandValue'));
+                break;
+            case 'nozzleTemp2::set':
+            case 'bedTemp2::set':
+            case 'curFeedratePct::set':
+            case 'fan::set':
+                $eqLogic->requestGet('http://' . $eqLogic->getConfiguration('IP') . ':81/protocal.csp?fname=net&opt=iot_conf&function=set&'.$this->getConfiguration('command').'='.$value);
                 break;
           }
     }
