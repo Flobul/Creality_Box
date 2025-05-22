@@ -14,6 +14,7 @@
         "Erreur : ": "Error :",
         "Expression cron non valide : ": "Invalid cron expression :",
         "Fichier introuvable : ": "File not found :",
+        "Fin du cron $contents ": "End of cron $contents",
         "Fin du cron équipement ": "End of equipment cron",
         "Impossible de lancer le démon Creality_Box_Daemon": "Unable to launch Creality_Box_Daemon",
         "Information": "Information",
@@ -21,13 +22,12 @@
         "L\\'équipement ": "Equipment",
         "Lancement du démon Creality_Box": "Launching the Creality_Box daemon",
         "Lancement du service Creality_Box": "Creality_Box service launched",
+        "Lancer l'impression": "Start printing",
+        "Le message et le sujet ne peuvent pas être vide": "Message and subject cannot be empty",
         "Le port n\\'est pas configuré.": "The port is not configured.",
-        "Rafraîchir": "Refresh",
-        "Redémarrer la box": "Restart box",
         "Tableau incorrect : ": "Incorrect table :",
         "Veuillez vérifier la configuration": "Please check configuration",
-        "fin": "end",
-        "Éteindre la box": "Switch off box"
+        "fin": "end"
     },
     "plugins\/Creality_Box\/core\/template\/dashboard\/Creality_Box.template.html": {
         "Date de collecte": "Date of collection",
