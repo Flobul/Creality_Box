@@ -23,7 +23,7 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.80';
+    public static $_pluginVersion = '0.90';
     public static $_widgetPossibility = array('custom' => true);
 
     /*     * ***********************Methode statique*************************** */
@@ -34,7 +34,7 @@ class Creality_Box extends eqLogic
      */
      public static $_encryptConfigKey = array('password');
 
-  
+
     /**
      * Récupère les infos du démon dans les processus
      * @return array Etat du démon
@@ -159,7 +159,7 @@ class Creality_Box extends eqLogic
 				));
         return $Creality;
     }
-  
+
     /**
      * Méthode appellée avant la création de l'objet
      * Active et affiche l'objet
@@ -178,25 +178,25 @@ class Creality_Box extends eqLogic
     public function postInsert()
     {
         if (!is_object($this->getCmd('action', 'halt'))) {
-            $this->loadCmdFromConf('halt');          
+            $this->loadCmdFromConf('halt');
         }
         if (!is_object($this->getCmd('action', 'reboot'))) {
-            $this->loadCmdFromConf('reboot');          
+            $this->loadCmdFromConf('reboot');
         }
         if (!is_object($this->getCmd('action', 'refresh'))) {
-            $this->loadCmdFromConf('refresh');          
+            $this->loadCmdFromConf('refresh');
         }
         if (!is_object($this->getCmd('action', 'stop::set'))) {
-            $this->loadCmdFromConf('stop::set');          
+            $this->loadCmdFromConf('stop::set');
         }
         if (!is_object($this->getCmd('action', 'pause::on'))) {
-            $this->loadCmdFromConf('pause::on');          
+            $this->loadCmdFromConf('pause::on');
         }
         if (!is_object($this->getCmd('action', 'pause::off'))) {
-            $this->loadCmdFromConf('pause::off');          
+            $this->loadCmdFromConf('pause::off');
         }
         if (!is_object($this->getCmd('action', 'autohome::set'))) {
-            $this->loadCmdFromConf('autohome::set');          
+            $this->loadCmdFromConf('autohome::set');
         }
     }
 
@@ -216,7 +216,7 @@ class Creality_Box extends eqLogic
             $pwd = config::byKey('password', __CLASS__);
 
             $this->requestGet('http://' . $this->getConfiguration('IP') . ':81/protocal.csp?fname=Info&opt=main&function=get');
-          
+
             $telnet = new telnet_Creality_Box();
             $connect = $telnet->telnetConnect($ipadr, $listen, $errno, $errstr);
             if ($connect) {
@@ -244,25 +244,25 @@ class Creality_Box extends eqLogic
             }
         }
         if (!is_object($this->getCmd('action', 'halt'))) {
-            $this->loadCmdFromConf('halt');          
+            $this->loadCmdFromConf('halt');
         }
         if (!is_object($this->getCmd('action', 'reboot'))) {
-            $this->loadCmdFromConf('reboot');          
+            $this->loadCmdFromConf('reboot');
         }
         if (!is_object($this->getCmd('action', 'refresh'))) {
-            $this->loadCmdFromConf('refresh');          
+            $this->loadCmdFromConf('refresh');
         }
         if (!is_object($this->getCmd('action', 'stop::set'))) {
-            $this->loadCmdFromConf('stop::set');          
+            $this->loadCmdFromConf('stop::set');
         }
         if (!is_object($this->getCmd('action', 'pause::on'))) {
-            $this->loadCmdFromConf('pause::on');          
+            $this->loadCmdFromConf('pause::on');
         }
         if (!is_object($this->getCmd('action', 'pause::off'))) {
-            $this->loadCmdFromConf('pause::off');          
+            $this->loadCmdFromConf('pause::off');
         }
         if (!is_object($this->getCmd('action', 'autohome::set'))) {
-            $this->loadCmdFromConf('autohome::set');          
+            $this->loadCmdFromConf('autohome::set');
         }
     }
 
@@ -382,11 +382,11 @@ class Creality_Box extends eqLogic
         }
         return $cmd;
     }
-  
+
     public function checkAndCreateActionCommands() {
 
     }
-  
+
     public function createAndUpdateFileListCommand() {
         $ftp = ftp_connect($this->getConfiguration('IP'));
         $login_result = ftp_login($ftp, 'anonymous', '');
@@ -484,7 +484,7 @@ class Creality_Box extends eqLogic
                     if (!$foundSelect) {
                         $listOption = '<option value="">Aucun</option>' . $listOption;
                     }
-                    $replace['#cmd_' . $cmd->getLogicalId() . '_listValue#'] = $listOption;          
+                    $replace['#cmd_' . $cmd->getLogicalId() . '_listValue#'] = $listOption;
                 }
                 $cmdValue = $cmd->getCmdValue();
                 if (is_object($cmdValue) && $cmdValue->getType() == 'info') {
@@ -525,7 +525,7 @@ class Creality_BoxCmd extends cmd
                 break;
         }
         $value = str_replace(array_keys($replace),$replace,$this->getConfiguration('updateCmdToValue', ''));
-      
+
         switch ($this->getLogicalId()) {
             case 'halt':
             case 'reboot':
