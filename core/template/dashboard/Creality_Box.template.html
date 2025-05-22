@@ -1,358 +1,274 @@
-<div class="eqLogic eqLogic-widget allowResize allowReorderCmd #custom_layout# #eqLogic_class# #class#" data-eqType="#eqType#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#" data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#" style="width: #width#;height: #height#;#style#">
-    <span class="statusCmd" style="position : absolute;right : 5px; width : 30px;z-index: 1030;"></span>
+<div class="eqLogic eqLogic-widget allowResize allowReorderCmd #custom_layout# #eqLogic_class# #class#"
+     data-eqType="#eqType#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="#version#"
+     data-translate-category="#translate_category#" data-category="#category#" data-tags="#tags#"
+     style="width: #width#;height: #height#;#style#">
+
+    <span class="statusCmd" style="position:absolute;right:5px;width:30px;z-index:1030;"></span>
     <center class="widget-name">
         <span class="warning" title="#alert_name#">
             <i class='#alert_icon#'></i>
         </span>
-        <span class="reportModeVisible">#name_display#
-            <span class="object_name">#object_name#</span>
+        <span class="cmd refresh pull-right cursor" data-cmd_id="#refresh_id#">
+          <i class="fas fa-sync"></i>
         </span>
+        <span class="reportModeVisible">#name_display# <span class="object_name">#object_name#</span></span>
         <a href="#eqLink#" class="reportModeHidden">#name_display# <span class="object_name">#object_name#</span></a>
     </center>
 
-    <div class="classContenant#id#" id="idActual#id#">
-        <div class="classTitle#id#" data-cmd_id="#cmd_modelVersion_id#">
-          <span id="cmd_modelVersion_id#id#" class="title" style="display:#cmd_modelVersion_display#"></span>
-        </div>
-        <div class="classTitle#id#" data-cmd_id="#cmd_host_id#">
-          <span id="cmd_host_id#id#" class="title"></span>
-        </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_nozzleTemp_id#">
-          <span id="cmd_nozzleTemp_id#id#" class="title" style="display:#cmd_nozzleTemp_display#"></span>
-        </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_bedTemp_id#">
-          <span id="cmd_bedTemp_id#id#" class="title" style="display:#cmd_bedTemp_display#"></span>
-        </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_fan_id#">
-          <span id="cmd_fan_id#id#" class="title" style="display:#cmd_fan_display#"></span>
-        </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_curFeedratePct_id#">
-          <span id="cmd_curFeedratePct_id#id#" class="title" style="display:#cmd_curFeedratePct_display#"></span>
-        </div>
+    <select id="cmd_print_id#id#" class="selectCmd">#cmd_print::set_listValue#</select>
 
-    </div>
-    <div class="classContenant#id#" id="idInPrinting#id#">
-        <div class="classStatus#id#" data-cmd_id="#cmd_state_id#">
-          <span id="cmd_state_id#id#" class="title" style="display:#cmd_state_display#"></span>
+    <div class="box">
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_model_name#</span>
+            <span id="cmd_model_id#id#" class="valueRight cursor history" data-cmd_id="#cmd_model_id#"></span>
         </div>
-        <div class="classStatus#id#">
-          <span class="classValueName#id#">#cmd_layer_name# :</span>
-          <span class="classValue#id#" id="idNumberOdLayers#id#">
-              <span class="actual" style="right: 30px !important;"></span>
-              <span class="slash">/</span>
-              <span class="total"></span>
-          </span>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_nozzleTemp_name#</span>
+            <span id="cmd_nozzleTempLine#id#" class="valueRight"></span>
         </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_printStartTime_id#">
-          <span id="cmd_printStartTime_id#id#" class="title" style="display:#cmd_printStartTime_display#"></span>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_bedTemp_name#</span>
+            <span id="cmd_bedTempLine#id#" class="valueRight"></span>
         </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_printJobTime_id#">
-          <span id="cmd_printJobTime_id#id#" class="title" style="display:#cmd_printJobTime_display#"></span>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_fan_name#</span>
+            <span id="cmd_fanLine#id#" class="valueRight"></span>
         </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_printLeftTime_id#">
-          <span id="cmd_printLeftTime_id#id#" class="title" style="display:#cmd_printLeftTime_display#"></span>
-        </div>
-        <div class="classStatus#id# history cursor" data-cmd_id="#cmd_percent_id#">
-          <span id="cmd_percent_id#id#" class="title" style="display:#cmd_percent_display#">
-          </span>
-        </div>
-
-
-    </div>
-    <div class="classContenant#id#" id="idErr#id#" style="display:#cmd_err_display#">
-        <div class="classStatus#id#" data-cmd_id="#cmd_err_id#">
-          <span id="cmd_err_id#id#" class="title"></span>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_curFeedratePct_name#</span>
+            <span id="cmd_curFeedratePctLine#id#" class="valueRight"></span>
         </div>
     </div>
+
+    <div class="box">
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_state_name#</span>
+            <span id="cmd_state_id#id#" class="valueRight cursor history" data-cmd_id="#cmd_state_id#"></span>
+        </div>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_layer_name#</span>
+            <span class="valueRight">
+                <span id="cmd_layer_id#id#" class="cursor history" data-cmd_id="#cmd_layer_id#"></span>
+                /
+                <span id="cmd_TotalLayer_id#id#" class="cursor history" data-cmd_id="#cmd_TotalLayer_id#"></span>
+            </span>
+        </div>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_printStartTime_name#</span>
+            <span id="cmd_printStartTime_id#id#" class="valueRight cursor history" data-cmd_id="#cmd_printStartTime_id#"></span>
+        </div>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_printJobTime_name#</span>
+            <span id="cmd_printJobTime_id#id#" class="valueRight cursor history" data-cmd_id="#cmd_printJobTime_id#"></span>
+        </div>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_printLeftTime_name#</span>
+            <span id="cmd_printLeftTime_id#id#" class="valueRight cursor history" data-cmd_id="#cmd_printLeftTime_id#"></span>
+        </div>
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_percent_name#</span>
+            <span id="cmd_percent_id#id#" class="valueRight cursor history" data-cmd_id="#cmd_percent_id#" style="display: flex; align-items: center; justify-content: flex-end;"></span>
+        </div>
+    </div>
+
+    <div class="box" style="display:#cmd_err_display#">
+        <div class="rowFlex">
+            <span class="labelLeft">#cmd_err_name#</span>
+            <span id="cmd_err_id#id#" class="valueRight cursor history" data-cmd_id="#cmd_err_id#"></span>
+        </div>
+    </div>
+    #cmd#
     #divGraphInfo#
 
     <style>
-        .classContenant#id# {
-            width: 98%;
-            margin-left:1%;
-            color: #000000;
-            border-style: solid;
-            border-color: #d0d0d0;
+        .box {
+            background-color: rgba(var(--eq-bg-color), var(--opacity)) !important;
+            border: 1px solid #d0d0d0;
             border-radius: 10px;
-            background-color:lightgrey;
-            opacity:.9;
+            padding: 8px;
+            margin-bottom: 8px;
         }
-        .classContenant#id#:hover {
-            opacity:.65;
+        .rowFlex {
+            display: flex;
+            align-items: center;
+            min-height: 1em;
         }
-        #idInPrinting#id#, #idErr#id# {
-            margin-top:5px;
-        }
-        .classTitle#id# {
-            position: relative;
-            width: 100%;
-            border-radius: 5px;
-            text-align: left;
-            background-color: #E0E0E0;
-            color: #808080;
-        }
-        .classStatus#id# {
-            position: relative;
-
-        }
-        .classValueName#id# {
-            position: relative;
-            width: 100%;
-            left: 20px;
+        .labelLeft {
+            flex: 1 0 0;
             text-align: left;
             font-size: 14px;
-            color: #000000;
+            padding-right: 10px;
         }
-        .classValue#id# {
-            position: absolute;
-            width: 50%;
-            right: 20px;
+        .valueRight {
+            flex: 1 0 0;
             text-align: right;
             font-size: 14px;
-            color: #808080;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            min-width: 60px;
+        }
+        input[type="number"] { width:45px; height:1.4em; }
+        .cursor { cursor: pointer; }
+        .history { opacity: 0.85; }
+        .progressBarSimple {
+            display: inline-block;
+            height: 16px;
+            vertical-align: middle;
+            background: #e0e0e0;
+            border-radius: 8px;
+            width: 100px;
+            margin-left: 8px;
+            margin-right: 6px;
+            position: relative;
             overflow: hidden;
         }
-        .progress#id# {
-            height: 19px !important;
-            background-color: var(--sc-form-color);
-        }
-
-        #progressBar#id# {
-            position: absolute;
-            width: 0%;
+        .progressBarSimple span {
+            display: block;
             height: 100%;
-            border-radius: 25px 0 0 25px;
-            background-image: 
-              repeating-linear-gradient(
-                45deg,
-                #606dbc,
-                #606dbc 10px,
-                #465298 10px,
-                #465298 20px
-
-              );
-            background-size: 100% 100%;
-          }
-        
-        .classProgress#id# {
-            display: inline-flex;
-            border-radius: 25px;
-            width: 50%;
-            float: right;
-            margin-right: 5px;
-        }
-      
-        .classProgress#id# .classValue#id# {
-           z-index: 2;
+            background: #606dbc;
+            border-radius: 8px;
+            width: 0;
+            transition: width 0.3s;
         }
     </style>
-    <script type="text/javascript">
-        //modèle de l'imprimante
-        jeedom.cmd.addUpdateFunction('#cmd_modelVersion_id#', function(_options) {
-            document.getElementById('cmd_modelVersion_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_modelVersion_name#</span> <span class="classValue#id#">'+_options.display_value+'</span>';
-        });
-        if (!isNaN('#cmd_modelVersion_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_modelVersion_id#',
-                display_value: '#cmd_modelVersion_value#'
-            }]);
-        }
-
-        //hostname de l'appareil + IP
-        jeedom.cmd.addUpdateFunction('#cmd_host_id#', function(_options) {
-            document.getElementById('cmd_host_id#id#').innerHTML = '<span class="classValueName#id#">#device_hostname# #device_ip#</span> <span class="classValue#id#">'+_options.display_value+'</span>';
-        });
-        if (!isNaN('#cmd_host_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_host_id#',
-                display_value: '#cmd_model_value#'
-            }]);
-        }
-
-        //Température du bed
-        jeedom.cmd.addUpdateFunction('#cmd_bedTemp_id#', function(_options) {
-            document.getElementById('cmd_bedTemp_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_bedTemp_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_bedTemp_name# :</span> <span class="classValue#id#">'+_options.display_value+' °C</span>';
-        });
-        if (!isNaN('#cmd_bedTemp_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_bedTemp_id#',
-                display_value: '#cmd_bedTemp_value#',
-                collectDate: '#cmd_bedTemp_collectDate#',
-                valueDate: '#cmd_bedTemp_valueDate#'
-            }]);
-        }
-
-        //Température de la buse
-        jeedom.cmd.addUpdateFunction('#cmd_nozzleTemp_id#', function(_options) {
-            document.getElementById('cmd_nozzleTemp_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_nozzleTemp_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_nozzleTemp_name# :</span> <span class="classValue#id#">'+_options.display_value+' °C</span>';
-        });
-        if (!isNaN('#cmd_nozzleTemp_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_nozzleTemp_id#',
-                display_value: '#cmd_nozzleTemp_value#',
-                collectDate: '#cmd_nozzleTemp_collectDate#',
-                valueDate: '#cmd_nozzleTemp_valueDate#'
-            }]);
-        }
-
-        //Vitesse du ventilateur
-        jeedom.cmd.addUpdateFunction('#cmd_fan_id#', function(_options) {
-            document.getElementById('cmd_fan_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_fan_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_fan_name# :</span> <span class="classValue#id#">'+_options.display_value+' %</span>';
-        });
-        if (!isNaN('#cmd_fan_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_fan_id#',
-                display_value: '#cmd_fan_value#',
-                collectDate: '#cmd_fan_collectDate#',
-                valueDate: '#cmd_fan_valueDate#'
-            }]);
-        }
-
-        //Vitesse du tête
-        jeedom.cmd.addUpdateFunction('#cmd_curFeedratePct_id#', function(_options) {
-            document.getElementById('cmd_curFeedratePct_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_curFeedratePct_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_curFeedratePct_name# :</span> <span class="classValue#id#">'+_options.display_value+' %</span>';
-        });
-        if (!isNaN('#cmd_curFeedratePct_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_curFeedratePct_id#',
-                display_value: '#cmd_curFeedratePct_value#',
-                collectDate: '#cmd_curFeedratePct_collectDate#',
-                valueDate: '#cmd_curFeedratePct_valueDate#'
-            }]);
-        }
-
-        //Etat de l'imprimante
-        jeedom.cmd.addUpdateFunction('#cmd_state_id#', function(_options) {
-            document.getElementById('cmd_state_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_state_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_state_name# :</span> <span class="classValue#id#">'+_options.display_value+'</span>';
-        });
-        if (!isNaN('#cmd_state_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_state_id#',
-                display_value: '#cmd_state_value#',
-                collectDate: '#cmd_state_collectDate#',
-                valueDate: '#cmd_state_valueDate#'
-            }]);
-        }
-
-        //Couches
-        jeedom.cmd.addUpdateFunction('#cmd_layer_id#', function(_options) {
-            document.querySelector('#idNumberOdLayers#id# .actual').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.querySelector('#idNumberOdLayers#id# .actual').innerHTML = '<span id="cmd_layer_id#id#" class="title history cursor" data-cmd_id="#cmd_layer_id#" style="display:#cmd_layer_display#"><span class="classValue#id#">'+_options.display_value+'</span>';
-        });
-        if (!isNaN('#cmd_layer_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_layer_id#',
-                display_value: '#cmd_layer_value#',
-                collectDate: '#cmd_layer_collectDate#',
-                valueDate: '#cmd_layer_valueDate#'
-            }]);
-        }
-        jeedom.cmd.addUpdateFunction('#cmd_TotalLayer_id#', function(_options) {
-            document.querySelector('#idNumberOdLayers#id# .total').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.querySelector('#idNumberOdLayers#id# .total').innerHTML = '<span id="cmd_TotalLayer_id#id#" class="title history cursor" data-cmd_id="#cmd_TotalLayer_id#" style="display:#cmd_TotalLayer_display#">'+_options.display_value+'</span>';
-        });
-        if (!isNaN('#cmd_TotalLayer_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_TotalLayer_id#',
-                display_value: '#cmd_TotalLayer_value#',
-                collectDate: '#cmd_TotalLayer_collectDate#',
-                valueDate: '#cmd_TotalLayer_valueDate#'
-            }]);
-        }
-
-        //Heure de début d'impression
-        jeedom.cmd.addUpdateFunction('#cmd_printStartTime_id#', function(_options) {
-            var formattedTime = "N/A";
-            if (_options.display_value != 0) {
-                var date = new Date(_options.display_value * 1000);
-                var hours = "0" + date.getHours();
-                var minutes = "0" + date.getMinutes();
-                var seconds = "0" + date.getSeconds();
-                formattedTime = hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-            }
-            document.getElementById('cmd_printStartTime_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_printStartTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printStartTime_name# :</span> <span class="classValue#id#">'+formattedTime+'</span>';
-        });
-        if (!isNaN('#cmd_printStartTime_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_printStartTime_id#',
-                display_value: '#cmd_printStartTime_value#',
-                collectDate: '#cmd_printStartTime_collectDate#',
-                valueDate: '#cmd_printStartTime_valueDate#',
-                unit: '#cmd_printStartTime_unite#'
-            }]);
-        }
-
-        //durées cmd_printJobTime_id cmd_printLeftTime_id
-        jeedom.cmd.addUpdateFunction('#cmd_printJobTime_id#', function(_options) {
-            let unit = _options.unit ? _options.unit : '#cmd_printJobTime_unite#';
-            document.getElementById('cmd_printJobTime_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_printJobTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printJobTime_name# :</span> <span class="classValue#id#">'+parseInt(_options.display_value)+' ' + unit +'</span>';
-        });
-        if (!isNaN('#cmd_printJobTime_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_printJobTime_id#',
-                display_value: '#cmd_printJobTime_value#',
-                collectDate: '#cmd_printJobTime_collectDate#',
-                valueDate: '#cmd_printJobTime_valueDate#',
-                unit: '#cmd_printJobTime_unite#'
-            }]);
-        }
-
-        jeedom.cmd.addUpdateFunction('#cmd_printLeftTime_id#', function(_options) {
-            let unit = _options.unit ? _options.unit : '#cmd_printLeftTime_unite#';
-            document.getElementById('cmd_printLeftTime_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_printLeftTime_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_printLeftTime_name# :</span> <span class="classValue#id#">'+parseInt(_options.display_value)+' ' + unit +'</span>';
-        });
-        if (!isNaN('#cmd_printLeftTime_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_printLeftTime_id#',
-                display_value: '#cmd_printLeftTime_value#',
-                collectDate: '#cmd_printLeftTime_collectDate#',
-                valueDate: '#cmd_printLeftTime_valueDate#',
-                unit: '#cmd_printLeftTime_unite#'
-            }]);
-        }
-
-        //Progression
-        jeedom.cmd.addUpdateFunction('#cmd_percent_id#', function(_options) {
-            document.getElementById('cmd_percent_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_percent_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_percent_name# :</span> <div class="classProgress#id# progress#id#"><span id="progressBar#id#"></span><span class="classValue#id#">'+_options.display_value+' %</span></div>';
-            let val = parseInt(_options.display_value);
-            val = parseFloat(document.querySelector('.classProgress#id#').offsetWidth / 100) * val;
-            document.getElementById('progressBar#id#').style.width = val + 'px';
-        });
-        if (!isNaN('#cmd_percent_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_percent_id#',
-                display_value: '#cmd_percent_value#',
-                collectDate: '#cmd_percent_collectDate#',
-                valueDate: '#cmd_percent_valueDate#'
-            }]);
-        }
-
-        //Nombre de couches
-        jeedom.cmd.addUpdateFunction('#cmd_err_id#', function(_options) {
-          console.log(_options)
-            document.getElementById('cmd_err_id#id#').setAttribute('title','{{Date de valeur}} : '+_options.valueDate+'<br/>{{Date de collecte}} : '+_options.collectDate);
-            document.getElementById('cmd_err_id#id#').innerHTML = '<span class="classValueName#id#">#cmd_err_name# :</span> <span class="classValue#id#">'+_options.display_value+'</span>';
-        });
-        if (!isNaN('#cmd_err_id#')) {
-            jeedom.cmd.refreshValue([{
-                cmd_id :'#cmd_err_id#',
-                display_value: '#cmd_err_value#',
-                collectDate: '#cmd_err_collectDate#',
-                valueDate: '#cmd_err_valueDate#'
-            }]);
+    <script>
+      
+        if (!isNaN('#refresh_id#')) {
+            document.querySelector('.eqLogic[data-eqLogic_uid="#uid#"] .refresh').addEventListener('click', function() {
+                jeedom.cmd.execute({ id: '#refresh_id#' })
+            })
         } else {
-            document.getElementById('idErr#id#').unseen();
+            document.querySelector('.eqLogic[data-eqLogic_uid="#uid#"] .refresh').remove()
         }
-	</script>
+        // Fonctions pour maj des valeurs + ajout du title avec collectDate et valueDate
+        jeedom.cmd.addUpdateFunction('#cmd_model_id#', function(_opt) {
+            var el = document.getElementById('cmd_model_id#id#');
+            el.innerText = _opt.display_value;
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_state_id#', function(_opt) {
+            var el = document.getElementById('cmd_state_id#id#');
+            el.innerText = _opt.display_value;
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_layer_id#', function(_opt) {
+            var el = document.getElementById('cmd_layer_id#id#');
+            el.innerText = _opt.display_value;
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_TotalLayer_id#', function(_opt) {
+            var el = document.getElementById('cmd_TotalLayer_id#id#');
+            el.innerText = _opt.display_value;
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_printStartTime_id#', function(_opt) {
+            var el = document.getElementById('cmd_printStartTime_id#id#');
+            var formatted = "N/A";
+            if (_opt.display_value != 0) {
+                var d = new Date(_opt.display_value * 1000);
+                formatted = ("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)+":"+("0"+d.getSeconds()).slice(-2);
+            }
+            el.innerText = formatted;
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_printJobTime_id#', function(_opt) {
+            var el = document.getElementById('cmd_printJobTime_id#id#');
+            el.innerText = parseInt(_opt.display_value)+" #cmd_printJobTime_unite#";
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_printLeftTime_id#', function(_opt) {
+            var el = document.getElementById('cmd_printLeftTime_id#id#');
+            el.innerText = parseInt(_opt.display_value)+" #cmd_printLeftTime_unite#";
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_percent_id#', function(_opt) {
+            var el = document.getElementById('cmd_percent_id#id#');
+            var val = parseInt(_opt.display_value) || 0;
+            // progress bar + valeur à droite
+            el.innerHTML =
+                "<span class='progressBarSimple'><span style='width:" + val + "%'></span></span>" +
+                "<span style='min-width:28px;display:inline-block;text-align:right;'>" + val + "%</span>";
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_err_id#', function(_opt) {
+            var el = document.getElementById('cmd_err_id#id#');
+            el.innerText = _opt.display_value;
+            el.setAttribute('title', '{{Date de valeur}} : ' + _opt.valueDate + '<br>{{Date de collecte}} : ' + _opt.collectDate);
+        });
+
+        // Nozzle/BED input (champ input à droite)
+        jeedom.cmd.addUpdateFunction('#cmd_nozzleTemp_id#', function(_opt) {
+            var el = document.getElementById('cmd_nozzleTempLine#id#');
+            el.innerHTML = "<span class='cursor history' data-cmd_id='#cmd_nozzleTemp_id#' title='{{Date de valeur}} : " + _opt.valueDate + "<br>{{Date de collecte}} : " + _opt.collectDate + "'>" + _opt.display_value + " °C</span> / <input type='number' id='nozzleTempInput#id#' value='"+_opt.display_value+"' min='0' max='350' />°C";
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_nozzleTemp2_id#', function(_opt) {
+            var input = document.getElementById('nozzleTempInput#id#');
+            if(input) input.value = _opt.display_value;
+        });
+        document.addEventListener('change', function(e) {
+            if (e.target && e.target.id === 'nozzleTempInput#id#') {
+                jeedom.cmd.execute({id:'#cmd_nozzleTemp2::set_id#', value:e.target.value});
+            }
+        });
+
+        jeedom.cmd.addUpdateFunction('#cmd_bedTemp_id#', function(_opt) {
+            var el = document.getElementById('cmd_bedTempLine#id#');
+            el.innerHTML = "<span class='cursor history' data-cmd_id='#cmd_bedTemp_id#' title='{{Date de valeur}} : " + _opt.valueDate + "<br>{{Date de collecte}} : " + _opt.collectDate + "'>" + _opt.display_value + " °C</span> / <input type='number' id='bedTempInput#id#' value='"+_opt.display_value+"' min='0' max='350' />°C";
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_bedTemp2_id#', function(_opt) {
+            var input = document.getElementById('bedTempInput#id#');
+            if(input) input.value = _opt.display_value;
+        });
+        document.addEventListener('change', function(e) {
+            if (e.target && e.target.id === 'bedTempInput#id#') {
+                jeedom.cmd.execute({id:'#cmd_bedTemp2::set_id#', value:e.target.value});
+            }
+        });
+
+        // Fan/Feedrate
+        jeedom.cmd.addUpdateFunction('#cmd_fan_id#', function(_opt) {
+            document.getElementById('cmd_fanLine#id#').innerHTML = "<input type='number' id='fanInput#id#' value='"+_opt.display_value+"' min='#cmd_fan_minValue#' max='#cmd_fan_maxValue#' />%";
+        });
+        jeedom.cmd.addUpdateFunction('#cmd_curFeedratePct_id#', function(_opt) {
+            document.getElementById('cmd_curFeedratePctLine#id#').innerHTML = "<input type='number' id='curFeedrateInput#id#' value='"+_opt.display_value+"' min='#cmd_curFeedratePct_minValue#' max='#cmd_curFeedratePct_maxValue#' />%";
+        });
+        document.addEventListener('change', function(e) {
+            if (e.target && e.target.id === 'fanInput#id#') {
+                jeedom.cmd.execute({id:'#cmd_fan::set_id#', value:e.target.value});
+            }
+            if (e.target && e.target.id === 'curFeedrateInput#id#') {
+                jeedom.cmd.execute({id:'#cmd_curFeedratePct::set_id#', value:e.target.value});
+            }
+        });
+
+        if (!isNaN('#cmd_model_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_model_id#',display_value:'#cmd_model_value#',collectDate:'#cmd_model_collectDate#',valueDate:'#cmd_model_valueDate#'}]);
+        if (!isNaN('#cmd_state_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_state_id#',display_value:'#cmd_state_value#',collectDate:'#cmd_state_collectDate#',valueDate:'#cmd_state_valueDate#'}]);
+        if (!isNaN('#cmd_layer_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_layer_id#',display_value:'#cmd_layer_value#',collectDate:'#cmd_layer_collectDate#',valueDate:'#cmd_layer_valueDate#'}]);
+        if (!isNaN('#cmd_TotalLayer_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_TotalLayer_id#',display_value:'#cmd_TotalLayer_value#',collectDate:'#cmd_TotalLayer_collectDate#',valueDate:'#cmd_TotalLayer_valueDate#'}]);
+        if (!isNaN('#cmd_printStartTime_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_printStartTime_id#',display_value:'#cmd_printStartTime_value#',collectDate:'#cmd_printStartTime_collectDate#',valueDate:'#cmd_printStartTime_valueDate#'}]);
+        if (!isNaN('#cmd_printJobTime_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_printJobTime_id#',display_value:'#cmd_printJobTime_value#',collectDate:'#cmd_printJobTime_collectDate#',valueDate:'#cmd_printJobTime_valueDate#'}]);
+        if (!isNaN('#cmd_printLeftTime_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_printLeftTime_id#',display_value:'#cmd_printLeftTime_value#',collectDate:'#cmd_printLeftTime_collectDate#',valueDate:'#cmd_printLeftTime_valueDate#'}]);
+        if (!isNaN('#cmd_percent_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_percent_id#',display_value:'#cmd_percent_value#',collectDate:'#cmd_percent_collectDate#',valueDate:'#cmd_percent_valueDate#'}]);
+        if (!isNaN('#cmd_err_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_err_id#',display_value:'#cmd_err_value#',collectDate:'#cmd_err_collectDate#',valueDate:'#cmd_err_valueDate#'}]);
+        if (!isNaN('#cmd_nozzleTemp_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_nozzleTemp_id#',display_value:'#cmd_nozzleTemp_value#',collectDate:'#cmd_nozzleTemp_collectDate#',valueDate:'#cmd_nozzleTemp_valueDate#'}]);
+        if (!isNaN('#cmd_nozzleTemp2_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_nozzleTemp2_id#',display_value:'#cmd_nozzleTemp2_value#',collectDate:'#cmd_nozzleTemp2_collectDate#',valueDate:'#cmd_nozzleTemp2_valueDate#'}]);
+        if (!isNaN('#cmd_bedTemp_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_bedTemp_id#',display_value:'#cmd_bedTemp_value#',collectDate:'#cmd_bedTemp_collectDate#',valueDate:'#cmd_bedTemp_valueDate#'}]);
+        if (!isNaN('#cmd_bedTemp2_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_bedTemp2_id#',display_value:'#cmd_bedTemp2_value#',collectDate:'#cmd_bedTemp2_collectDate#',valueDate:'#cmd_bedTemp2_valueDate#'}]);
+        if (!isNaN('#cmd_fan_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_fan_id#',display_value:'#cmd_fan_value#',collectDate:'#cmd_fan_collectDate#',valueDate:'#cmd_fan_valueDate#'}]);
+        if (!isNaN('#cmd_curFeedratePct_id#')) 
+            jeedom.cmd.refreshValue([{cmd_id:'#cmd_curFeedratePct_id#',display_value:'#cmd_curFeedratePct_value#',collectDate:'#cmd_curFeedratePct_collectDate#',valueDate:'#cmd_curFeedratePct_valueDate#'}]);
+
+    </script>
 </div>
