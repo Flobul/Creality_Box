@@ -1,6 +1,7 @@
 {
 	"id": "Creality_Box",
 	"name": "Creality Box",
+	"pluginVersion": "0.91",
 	"description": {
 		"fr_FR": "Plugin permettant de récupérer les informations de la Creality Box.</br>Il faut impérativement que l'accès Telnet soit ouvert sur la box.",
 		"en_US": "Plugin to retrieve information from the Creality Box.</br>It is imperative that the Telnet access remains open on the box.",

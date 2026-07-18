@@ -23,7 +23,7 @@ require_once __DIR__ . "/../../../../plugins/Creality_Box/3rdparty/telnet.php";
 class Creality_Box extends eqLogic
 {
     /*     * *************************Attributs****************************** */
-    public static $_pluginVersion = '0.90';
+    public static $_pluginVersion = '0.91';
     public static $_widgetPossibility = array('custom' => true);
 
     /*     * ***********************Methode statique*************************** */
