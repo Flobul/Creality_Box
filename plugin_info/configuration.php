@@ -105,7 +105,7 @@
               <sup><i class="fas fa-question-circle" title="{{Entrez le mot de passe.}} {{Par défaut}} : cxswprin"></i></sup>
               </label>
               <div class="input-group col-sm-3">
-                <input type="password" class="inputPassword configKey form-control" data-l1key="password">
+                <input type="text" class="inputPassword configKey form-control" data-l1key="password">
                 <span class="input-group-btn">
                     <a class="btn btn-default form-control bt_showPass roundedRight"><i class="fas fa-eye"></i></a>
                 </span>
